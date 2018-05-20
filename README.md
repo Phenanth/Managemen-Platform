@@ -81,3 +81,9 @@ npm test
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+## Updates
+
+### 18-05-20
+
+Created the structure of the project and the style of login page in `Login.vue` file.

@@ -17,6 +17,20 @@
 					<label for="input-pw">Password</label>
 					<input type="password" class="form-control" placeholder="Password">
 				</div>
+				<div class="radio">
+					<label for="student">
+						<input type="radio" name="role" id="student">
+						Student
+					</label>
+					<label for="Teacher">
+						<input type="radio" name="role" id="teacher">
+						Teacher
+					</label>
+					<label for="Admin">
+						<input type="radio" name="role" id="admin">
+						Admin
+					</label>
+				</div>
 				<div class="checkbox">
 					<label>
 						<input type="checkbox">Remember me in 7 days.

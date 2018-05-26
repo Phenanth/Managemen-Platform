@@ -87,3 +87,22 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 ### 18-05-20
 
 Created the structure of the project and the style of login page in `Login.vue` file.
+
+### 18-05-26
+
+#### Worked on:
+
+- Router design. (Some of the)
+- Login page.
+
+#### Some issues:
+
+- The `TeacherProfile.vue` isn't working.
+
+Even if I change the content of the component, or change the path of the component, it simply isn't working.
+And when I was about to give up trying, I restarted the program then it was automatically fixed...*sign*.
+
+#### Next Step
+
+When I'm done with the database interaction, I will add the dynamic router.
+

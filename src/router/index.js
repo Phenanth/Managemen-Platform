@@ -6,6 +6,7 @@ import User from '@/components/user'
 
 import Student from '@/components/student/student'
 import StudentProfile from '@/components/student/studentProfile'
+import StudentViewOfTeacher from '@/components/student/stu_viewOfTeacher'
 
 import Admin from '@/components/admin/admin'
 import AdminProfile from '@/components/admin/adminProfile'
@@ -24,18 +25,22 @@ export default new Router({
     },
     // Section for student.
     {
-    	path: '/student',
+    	path: '/student/:id',
     	component: User,
     	children: [
     		{
     			path: 'profile',
     			component: StudentProfile
-    		}
+    		},
+        {
+              path: 'view-of-teacher',
+              component: StudentViewOfTeacher
+        }
     	]
     },
     // Section for Administrator.
     {
-    	path: '/admin',
+    	path: '/admin/:id',
     	component: User,
     	children: [
     		{
@@ -46,7 +51,7 @@ export default new Router({
     },
     // Section for teachers.
     {
-    	path: '/teacher',
+    	path: '/teacher/:id',
     	component: User,
     	children: [
     		{

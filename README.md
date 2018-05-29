@@ -106,3 +106,21 @@ And when I was about to give up trying, I restarted the program then it was auto
 
 When I'm done with the database interaction, I will add the dynamic router.
 
+### 18-05-29
+
+#### Worked on:
+
+- Router design.(Mostly the dynamic routing for student components)
+- Login logic in the `dbHelper.js`
+
+#### Next Step(s)
+
+1. The creation of the localStorage (two options: 2 hours or 7 days)
+2. The alert system of the `login.vue`
+3. Page design of the `user.vue`
+4. Dynamic routing for other pages like `admin.vue` and `teacher.vue`
+5. User authentification using localStorage.
+6. Other database logic like changing user's password.
+7. (If any)
+
+Too much work to do, I will choose some of them to complete next time.

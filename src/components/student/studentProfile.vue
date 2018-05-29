@@ -2,7 +2,7 @@
 <template>
 	<div class="profile">
 		<h1>Student Profile</h1>
-		<router-link v-bind:to="indexPath">/student/:id</router-link>
+		<!-- <router-link v-bind:to="indexPath">/student/:id</router-link> -->
 	</div>
 </template>
 <script>

@@ -124,3 +124,9 @@ When I'm done with the database interaction, I will add the dynamic router.
 7. (If any)
 
 Too much work to do, I will choose some of them to complete next time.
+
+#### Later this day
+
+- Designed the layout of the `user.vue`
+
+Need to add log out logic and the style of the active tab.

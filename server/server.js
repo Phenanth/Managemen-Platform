@@ -9,6 +9,7 @@ app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
 app.use('/', routes);
+app.use('/api', routes);
 
 app.use(function (req, res, next) {
 	var err = new Error('Page Not Found.');

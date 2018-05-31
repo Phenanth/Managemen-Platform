@@ -4,6 +4,7 @@ const Express = require('express');
 const router = Express.Router();
 const db = require('./connect.js');
 const createToken = require('../middleware/createToken.js');
+const checkToken = require('../middleware/checkToken.js');
 
 const Login = (req, res) => {
 

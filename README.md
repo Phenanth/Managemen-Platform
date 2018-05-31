@@ -140,3 +140,12 @@ Need to add log out logic and the style of the active tab.
 - The creation of the localStorage (two options: 2 hours or 7 days) BUT haven't checked yet.
 
 I may work on User authentification using localStorage and other database logics later this day.
+
+#### Later On The Course
+
+- Check Token, but still part of it.
+
+Problem: Can't add `api.isLogin()` in vue-store (token.js) or the router will not work, will always stay in the present page. Maybe I can add it into the part of interacting with database, but still want to add token check logic into the router itself.
+
+Also need to add the role check and user check into token check.
+`localStorage.setItem('user', username)`, `localStorage.setItem('role', role)`.

@@ -130,3 +130,13 @@ Too much work to do, I will choose some of them to complete next time.
 - Designed the layout of the `user.vue`
 
 Need to add log out logic and the style of the active tab.
+
+### 180531
+
+#### Things I Worked On This Morning
+
+- Dynamic routing for other pages like `admin.vue` and `teacher.vue`
+- The alert of the `login.vue`
+- The creation of the localStorage (two options: 2 hours or 7 days) BUT haven't checked yet.
+
+I may work on User authentification using localStorage and other database logics later this day.

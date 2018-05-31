@@ -3,15 +3,24 @@
 const Express = require('express');
 const router = Express.Router();
 const db = require('./connect.js');
+const createToken = require('../middleware/createToken.js');
 
 const Login = (req, res) => {
 
+	let table;
+	let validTime;
 	let queryString = {
 		sql: 'SELECT password AS solution FROM ? WHERE id = ?',
 		values: [req.body.username],
 		timeout: 40000
 	};
-	let table;
+
+	if (req.body.willStore) {
+		validTime = '168h';
+	} else {
+		validTime = '5s';
+	}
+
 	if (req.body.role == 'student') {
 		queryString.sql = 'SELECT password AS solution FROM students WHERE id=?'
 	} else if (req.body.role == 'admin') {
@@ -32,6 +41,7 @@ const Login = (req, res) => {
 					info: 200,
 					success: true,
 					path: path,
+					token: createToken(req.body.username, validTime)
 				});		
 			} else {
 				console.log('Operation: Login, State: 304, Message: Wrong password.');
@@ -45,7 +55,8 @@ const Login = (req, res) => {
 			console.log('Operation: Login, State: 404, Message: User not existed.');
 			res.json({
 				info: 404,
-				success: false
+				success: false,
+				message: 'User not exists.'
 			});
 		}
 	});

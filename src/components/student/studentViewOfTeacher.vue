@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <template>
-	<div>
+	<div class="student">
 		<h1>Student View Of Teacher</h1>
 		<!-- <router-link v-bind:to="indexPath">/student/:id</router-link> -->
 	</div>

@@ -45,6 +45,7 @@
 </template>
 <script>
 import api from '../../api.js'
+import store from '../../store/index.js'
 export default {
 	name: 'Login',
 	data: function () {
@@ -69,7 +70,10 @@ export default {
 				}) => {
 					if (data.info == 200) {
 						// Authentificated role will be transfered from the server, this is just the test version.
-						this.$router.push(data.path);
+						store.dispatch('storeToken', data.token)
+						this.$router.push(data.path)
+					} else {
+						alert(data.message)
 					}
 				})
 			} else {
@@ -80,6 +84,14 @@ export default {
 }
 </script>
 <style>
+
+html, body {
+	height: 100%;
+	margin: 0px;
+	border: 3px solid #0EA8A3; /* Manjaro green */
+	background-color: #F5FFFF;
+}
+
 .login {
 	width: 70%;
 	height: 100%;

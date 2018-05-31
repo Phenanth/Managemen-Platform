@@ -7,44 +7,42 @@
 			<div class="brand-box">
 				<span><b>User</b>:{{ $route.params.id }}</span>
 			</div>
-			<div class="btn-logout">Log Out</div>
+			<div class="btn-logout" v-on:click="logout()">Log Out</div>
 		</nav>
 
 		<div class="sidebar">
 			<div class="sidebar-tabs" v-if="isStudent">
-				<router-link class="sidebar-tab" v-bind:class="{ active : true }" v-bind:to="studentProfilePath">Student1</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active : false }"  v-bind:to="studentViewOfTeacher">Student2</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : true }" v-bind:to="studentProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : false }"  v-bind:to="studentViewOfTeacherPath">Teacher View</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
-				<li>Admin1</li>
-				<li>Admin2</li>
+				<router-link class="sidebar-tab" v-bind:class="{ active: true}" v-bind:to="adminProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="adminStuListPath">StuList</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="adminTchListPath">TchList</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isTeacher">
-				<li>Teacher1</li>
-				<li>Teacher2</li>
+				<router-link class="sidebar-tab" v-bind:class="{ active: true}" v-bind:to="teacherProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="teacherStuHandlePath">StuHandle</router-link>
 			</div>
 			<div v-else></div>
 		</div>
-
-		<!-- The function below will be moved to student.vue and so -->
-		<div v-if="isAdmin">
-			<router-link to="/admin/profile">/admin/profile</router-link>
-			<router-link to="/admin/view-of-student">/admin/view-of-student</router-link>
-		</div>
-		<div v-else-if="isTeacher">
-			<router-link to="/teacher/profile">/teacher/profile</router-link>
-		</div> 
 		<router-view></router-view>
 	</div>
 </template>
 <script>
 import router from '../router/index.js'
+import store from '../store/index.js'
 export default {
 	name: 'user',
 	data: function () {
 		return {
 			studentProfilePath: '/student/' + this.$route.params.id + '/profile',
-			studentViewOfTeacher: '/student/' + this.$route.params.id + '/view-of-teacher'
+			studentViewOfTeacherPath: '/student/' + this.$route.params.id + '/view-of-tch',
+			adminProfilePath: '/admin/' + this.$route.params.id + '/profile',
+			adminStuListPath: '/admin/' + this.$route.params.id + '/stu-list',
+			adminTchListPath: '/admin/' + this.$route.params.id + '/tch-list',
+			teacherProfilePath: '/teacher/' + this.$route.params.id + '/profile',
+			teacherStuHandlePath: '/teacher/' + this.$route.params.id + '/stu-handle'
 		}
 	},
 	// Will be optimized to use localStorage in the future.
@@ -69,17 +67,9 @@ export default {
 		}
 	},
 	methods: {
-		console: function () {
-			console.log(this.$router.path)
-			let roleCheck = new RegExp('/student*', 'g')
-			let arr = roleCheck.exec(this.$route.path)
-			console.log(arr)
-			roleCheck = new RegExp('/admin*', 'g')
-			arr = roleCheck.exec(this.$route.path)
-			console.log(arr)
-			roleCheck = new RegExp('/teacher*', 'g')
-			arr = roleCheck.exec(this.$route.path)
-			console.log(arr)
+		logout: function () {
+			store.dispatch('logout')
+			this.$router.push('/')
 		}
 	}
 }

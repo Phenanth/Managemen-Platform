@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <template>
 	<div class="teacher">
-		<h1>Teacher Profile</h1>
+		<h1>Teacher Student Handle</h1>
 		<!-- <router-link to="/teacher">/teacher</router-link> -->
 	</div>
 </template>
 <script>
 export default {
-	name: 'teacherProfile'
+	name: 'teacherStuHandle'
 }
 </script>
 <style></style>

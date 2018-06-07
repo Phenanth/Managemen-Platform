@@ -12,21 +12,6 @@ const getters = {
 		} else {
 			return localStorage.getItem('token')
 		}
-		/*api.isLogin().then(({
-			data
-		}) => {
-			if (data.success) {
-				if (state.token) {
-					return state.token
-				} else {
-					console.log(localStorage.getItem('token'))
-					return localStorage.getItem('token')
-				}
-			} else {
-				localStorage.removeItem('token')
-				return null
-			}
-		})*/
 	}
 }
 
@@ -46,7 +31,6 @@ const mutations = {
 	},
 	LOGOUT: function (state) {
 		localStorage.removeItem('token')
-		console.log('In token.js: ' + localStorage.getItem('token'))
 		state.token = null
 	}
 }

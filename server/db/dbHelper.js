@@ -19,7 +19,7 @@ const Login = (req, res) => {
 	if (req.body.willStore) {
 		validTime = '168h';
 	} else {
-		validTime = '5s';
+		validTime = '10s';
 	}
 
 	if (req.body.role == 'student') {

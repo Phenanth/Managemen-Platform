@@ -70,7 +70,12 @@ export default {
 				}) => {
 					if (data.info == 200) {
 						// Authentificated role will be transfered from the server, this is just the test version.
-						store.dispatch('storeToken', data.token)
+						let user = {
+							token: data.token,
+							username: this.username,
+							role: this.role
+						}
+						store.dispatch('storeToken', JSON.stringify(user))
 						this.$router.push(data.path)
 					} else {
 						alert(data.message)

@@ -7,7 +7,7 @@
 			<div class="brand-box">
 				<span><b>User</b>:{{ $route.params.id }}</span>
 			</div>
-			<div class="btn-logout" v-on:click="logout()">Log Out</div>
+			<button class="btn-logout" v-on:click="logout()">Log Out</button>
 		</nav>
 
 		<div class="sidebar">
@@ -61,16 +61,16 @@ export default {
 			let roleCheckTeacher = new RegExp('/teacher*', 'g')
 			let arrTeacher = roleCheckTeacher.exec(this.$route.path)
 			return arrTeacher
-		},
-		path: function() {
-			return '/student/2015210405001/profile'
 		}
 	},
 	methods: {
 		logout: function () {
 			store.dispatch('logout')
-			this.$router.push('/')
+			router.go(0)
+			router.push('/')
 		}
+	},
+	mounted: function () {
 	}
 }
 </script>
@@ -135,7 +135,7 @@ b {
 	text-decoration: none;
 	color: #E5F5F5;
 	line-height: 50px;
-	background-color: #50B4AC;
+	background-color: #78bfba;
 }
 
 .active {

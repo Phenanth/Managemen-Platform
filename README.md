@@ -149,3 +149,11 @@ Problem: Can't add `api.isLogin()` in vue-store (token.js) or the router will no
 
 Also need to add the role check and user check into token check.
 `localStorage.setItem('user', username)`, `localStorage.setItem('role', role)`.
+
+### 18-06-07
+
+#### Worked On
+- Added some part of router.
+
+Not solved: Still can't push the page back immediately when route changes.
+- Designed CSS of profile page.

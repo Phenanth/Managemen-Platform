@@ -31,11 +31,29 @@ const router =  new Router({
 			path: '/login',
 			name: 'login',
 			component: Login,
-			beforeLeave: (to, from, next) => {
-				console.log(store.getters.showTokenState)
+			beforeEnter: (to, from, next) => {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.username) {
+					next('/' + token.role + '/')
+				} else {
+					next()
+				}
 			}
 		},
 		// Section for student.
+		{
+			path: '/student',
+			component: User,
+			beforeEnter: (to, from, next) => {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'student') {
+					let username = token.username
+					next('/student/' + username)
+				} else {
+					next('/login')
+				}
+			}
+		},
 		{
 			path: '/student/:id',
 			component: User,
@@ -51,14 +69,29 @@ const router =  new Router({
 			}
 			],
 			beforeEnter: (to, from ,next) => {
-				if (store.getters.showTokenState) {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'student' && to.params.id == token.username) {
 					next()
 				} else {
-					next('')
+					next('/login')
 				}
 			}
 		},
+		// Need to be optimized like student section.
 		// Section for Administrator.
+		{
+			path: '/admin',
+			component: User,
+			beforeEnter: (to, from, next) => {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'admin') {
+					let username = token.username
+					next('/admin/' + username)
+				} else {
+					next('/login')
+				}
+			}
+		},
 		{
 			path: '/admin/:id',
 			component: User,
@@ -78,14 +111,28 @@ const router =  new Router({
 				}
 			],
 			beforeEnter: (to, from ,next) => {
-				if (store.getters.showTokenState) {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'admin' && to.params.id == token.username) {
 					next()
 				} else {
-					next('/')
+					next('/login')
 				}
 			}
 		},
 		// Section for teachers.
+		{
+			path: '/teacher',
+			component: User,
+			beforeEnter: (to, from, next) => {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'teacher') {
+					let username = token.username
+					next('/teacher/' + username)
+				} else {
+					next('/login')
+				}
+			}
+		},
 		{
 			path: '/teacher/:id',
 			component: User,
@@ -101,10 +148,11 @@ const router =  new Router({
 				}
 			],
 			beforeEnter: (to, from ,next) => {
-				if (store.getters.showTokenState) {
+				let token = JSON.parse(store.getters.showTokenState)
+				if (token && token.role == 'teacher' && to.params.id == token.username) {
 					next()
 				} else {
-					next('/')
+					next('/login')
 				}
 			}
 		}

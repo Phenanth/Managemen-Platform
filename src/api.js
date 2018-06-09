@@ -31,5 +31,11 @@ export default {
 	},
 	isLogin () {
 		return instance.get('/api/isLogin')
+	},
+	getData (data) {
+		return instance.post('/api/data', data)
+	},
+	changePassword (data) {
+		return instance.post('/api/changePassword', data)
 	}
 }

@@ -40,7 +40,7 @@
 			</form>
 		</div>
 		<hr>
-		<div class="ft">C.F.: Charllote</div>
+		<div class="ft">C.F.: Charlotte</div>
 	</div>
 </template>
 <script>

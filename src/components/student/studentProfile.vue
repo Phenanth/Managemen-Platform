@@ -11,24 +11,40 @@
 			<form class="form-horizontal">
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Name:</label>
+					<div class="userdata">
+						<span> {{ this.userdata.name }}
+					</span></div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Sex:</label>
-				</div>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.sex }}</span></div>
+					</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Major:</label>
-				</div>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.major }}</span></div>
+					</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Class Id:</label>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.classId }}</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Phone</label>
-				</div>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.phone }}</span></div>
+					</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">State:</label>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.state }}</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Tutor Id:</label>
+					<span class="userdata"> {{ this.userdata.tutorId }}</span>
 				</div>
 			</form>
 		</div>
@@ -37,19 +53,19 @@
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="oldPassword">Old Password:</label>
 					<div class="col-md-7">
-						<input type="password" class="form-control" placeholder="Old Password">
+						<input type="password" class="form-control" placeholder="Old Password" v-model="alter.oldPassword">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="newPassword">New Password:</label>
 					<div class="col-md-7">
-						<input type="password" class="form-control" placeholder="New Password">
+						<input type="password" class="form-control" placeholder="New Password" v-model="alter.newPassword">
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="checkPassword">Check Password:</label>
 					<div class="col-md-7">
-						<input type="password" class="form-control" placeholder="Check the New Password">
+						<input type="password" class="form-control" placeholder="Check the New Password" v-model="alter.checkPassword">
 					</div>
 				</div>
 				<button class="btn btn-primary btn-doChange" v-on:click="doChange()">Submit</button>
@@ -59,12 +75,50 @@
 	</div>
 </template>
 <script>
+import api from '../../api.js'
+import store from '../../store/index.js'
+import router from '../../router/index.js'
 export default {
 	name: 'studentProfile',
 	data: function() {
 		return {
-			presentTab: 'profile'
+			presentTab: 'profile',
+			userdata: {
+				name: '',
+				sex: '',
+				major: '',
+				classId: '',
+				phone: '',
+				state: '',
+				tutorId: ''
+			},
+			alter: {
+				oldPassword: '',
+				newPassword: '',
+				checkPassword: ''
+			}
 		}
+	},
+	mounted: function () {
+		let token = JSON.parse(store.getters.showTokenState)
+		let opt = {
+			username: token.username,
+			role: token.role
+		}
+		api.getData(opt).then(({
+			data
+		}) => {
+			if (data.success) {
+				let queried = data.queried
+				this.userdata.name = queried.name
+				this.userdata.sex = queried.sex
+				this.userdata.major = queried.major
+				this.userdata.classId = queried.classId
+				this.userdata.phone = queried.phone
+				this.userdata.state = queried.state
+				this.userdata.tutorId = queried.tutorId
+			}
+		})
 	},
 	computed: {
 		isActive: function () {
@@ -82,10 +136,28 @@ export default {
 			this.presentTab = routes
 		},
 		doChange: function() {
-
+			if (this.alter.checkPassword != '' && this.alter.checkPassword == this.alter.newPassword) {
+				let token = JSON.parse(store.getters.showTokenState)
+				let opt = {
+					username: token.username,
+					role: token.role,
+					oldPassword: this.alter.oldPassword,
+					newPassword: this.alter.newPassword,
+				}
+				api.changePassword(opt).then(({
+					data
+				}) => {
+					alert(data.message)
+					if (data.success) {
+						store.dispatch('logout')
+						router.go(0)
+						router.push('/')
+					}
+				})
+			} else {
+				alert('Please check the inputs.')
+			}
 		}
-	},
-	mounted: function () {
 	}
 }
 </script>
@@ -136,6 +208,14 @@ export default {
 	width: 100px;
 	text-align: right;
 }
+
+.userdata {
+	text-align: left;
+	font-size: 20px;
+	color: #505050;
+	line-height: 20px;
+}
+
 .btn-doChange  {
 	margin-top: 30px;
 }

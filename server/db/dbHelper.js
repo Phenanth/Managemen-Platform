@@ -63,8 +63,95 @@ const Login = (req, res) => {
 	});
 }
 
+const Data = (req, res) => {
+	let queryString = {
+		sql: 'SELECT id, name, sex, major, classId, phone, state, tutorId from ? where id=?',
+		values: [req.body.username],
+		timeout: 40000
+	};
+
+	if (req.body.role == 'student') {
+		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM students WHERE id=?'
+	} else if (req.body.role == 'admin') {
+		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM manager WHERE id=?'
+	} else if (req.body.role == 'teacher') {
+		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM teacher WHERE id=?'
+	}
+
+	db.query(queryString, function(error, results, fields) {
+		let result = results[0];
+		console.log("Operation: Data, State: 200");
+		res.json({
+			info: 200,
+			success: true,
+			queried: {
+				id: result.id,
+				name: result.name,
+				sex: result.sex,
+				major: result.major,
+				classId: result.classId,
+				phone: result.phone,
+				state: result.state,
+				tutorId: result.tutorId
+			}
+		})
+	});
+
+}
+
+const changePassword = (req, res) => {
+
+	let queryString = {
+		sql: 'SELECT password AS solution FROM ? WHERE id = ?',
+		values: [req.body.username],
+		timeout: 40000
+	};
+	let queryString2 ={
+		sql: 'UPDATE ? SET password=? WHERE id=?',
+		values: [req.body.newPassword, req.body.username],
+		timeout: 40000
+	}
+
+	if (req.body.role == 'student') {
+		queryString.sql = 'SELECT password AS solution FROM students WHERE id=?'
+		queryString2.sql = 'UPDATE students SET password=? WHERE id=?'
+	} else if (req.body.role == 'admin') {
+		queryString.sql = 'SELECT password AS solution FROM manager WHERE id=?'
+		queryString2.sql = 'UPDATE manager SET password=? WHERE id=?'
+	} else if (req.body.role == 'teacher') {
+		queryString.sql = 'SELECT password AS solution FROM teacher WHERE id=?'
+		queryString2.sql = 'UPDATE teacher SET password=? WHERE id=?'
+	}
+
+	db.query(queryString, function (error, results, fields) {
+		if (results[0].solution != req.body.oldPassword) {
+			console.log('Operation: Change Password, State: 404, Message: Wrong former password.');
+			res.json({
+				info: 404,
+				success: false,
+				message: 'Wrong former password.'
+			})
+		} else {
+			db.query(queryString2, function (error, results, fields) {
+				console.log ('Operation: Change Password, state: 200, Message: Password changed, please re-login.');
+				res.json({
+					info: 200,
+					success: true,
+					message: 'Password changed, please re-login.'
+				})
+			});
+			
+		}
+	});
+	
+}
+
 module.exports = (router) => {
 
 	router.post('/login', Login);
+
+	router.post('/data', Data);
+
+	router.post('/changePassword', changePassword);
 
 }

@@ -157,3 +157,11 @@ Also need to add the role check and user check into token check.
 
 Not solved: Still can't push the page back immediately when route changes.
 - Designed CSS of profile page.
+
+### 18-06-09
+
+#### Worked On:
+
+- Added logic of getData and changePassword.
+
+Later I may add these logic to admin page and teacher page, too. Afterwards maybe it's the alternative functions left to be solved.

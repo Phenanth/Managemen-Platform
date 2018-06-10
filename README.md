@@ -165,3 +165,11 @@ Not solved: Still can't push the page back immediately when route changes.
 - Added logic of getData and changePassword.
 
 Later I may add these logic to admin page and teacher page, too. Afterwards maybe it's the alternative functions left to be solved.
+
+### 18-06-10
+
+#### Added
+
+- Same logic to the admin and teacher section.
+
+Also optimized the server part.

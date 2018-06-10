@@ -64,6 +64,7 @@ const Login = (req, res) => {
 }
 
 const Data = (req, res) => {
+
 	let queryString = {
 		sql: 'SELECT id, name, sex, major, classId, phone, state, tutorId from ? where id=?',
 		values: [req.body.username],
@@ -73,28 +74,53 @@ const Data = (req, res) => {
 	if (req.body.role == 'student') {
 		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM students WHERE id=?'
 	} else if (req.body.role == 'admin') {
-		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM manager WHERE id=?'
+		queryString.sql = 'SELECT id, name, maxNum FROM manager WHERE id=?'
 	} else if (req.body.role == 'teacher') {
-		queryString.sql = 'SELECT id, name, sex, major, classId, phone, state, tutorId FROM teacher WHERE id=?'
+		queryString.sql = 'SELECT id, name, sex, position, direction, phone FROM teacher WHERE id=?'
 	}
 
 	db.query(queryString, function(error, results, fields) {
 		let result = results[0];
 		console.log("Operation: Data, State: 200");
-		res.json({
-			info: 200,
-			success: true,
-			queried: {
-				id: result.id,
-				name: result.name,
-				sex: result.sex,
-				major: result.major,
-				classId: result.classId,
-				phone: result.phone,
-				state: result.state,
-				tutorId: result.tutorId
-			}
-		})
+		if (req.body.role == 'student') {
+			res.json({
+				info: 200,
+				success: true,
+				queried: {
+					id: result.id,
+					name: result.name,
+					sex: result.sex,
+					major: result.major,
+					classId: result.classId,
+					phone: result.phone,
+					state: result.state,
+					tutorId: result.tutorId
+				}
+			})
+		} else if (req.body.role == 'admin') {
+			res.json({
+				info: 200,
+				success: true,
+				queried: {
+					id: result.id,
+					name: result.name,
+					maxNum: result.maxNum
+				}
+			})
+		} else if (req.body.role == 'teacher') {
+			res.json({
+				info: 200,
+				success: true,
+				queried: {
+					id: result.id,
+					name: result.name,
+					sex: result.sex,
+					position: result.position,
+					direction: result.direction,
+					phone: result.phone
+				}
+			})
+		}
 	});
 
 }

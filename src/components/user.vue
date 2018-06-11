@@ -5,7 +5,7 @@
 		<!-- Navbar -->
 		<nav class="navbar navbar-fixed-top">
 			<div class="brand-box">
-				<span><b>User</b>:{{ $route.params.id }}</span>
+				<span><b>User</b>:{{ username }}</span>
 			</div>
 			<button class="btn-logout" v-on:click="logout()">Log Out</button>
 		</nav>
@@ -36,6 +36,7 @@ export default {
 	name: 'user',
 	data: function () {
 		return {
+			username: '',
 			studentProfilePath: '/student/' + this.$route.params.id + '/profile',
 			studentViewOfTeacherPath: '/student/' + this.$route.params.id + '/view-of-tch',
 			adminProfilePath: '/admin/' + this.$route.params.id + '/profile',
@@ -71,6 +72,7 @@ export default {
 		}
 	},
 	mounted: function () {
+		this.username = JSON.parse(store.getters.showTokenState).username
 	}
 }
 </script>

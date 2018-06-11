@@ -12,8 +12,8 @@
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Name:</label>
 					<div class="userdata">
-						<span> {{ this.userdata.name }}
-					</span></div>
+						<span> {{ this.userdata.name }}</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Sex:</label>

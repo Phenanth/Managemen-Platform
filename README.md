@@ -173,3 +173,9 @@ Later I may add these logic to admin page and teacher page, too. Afterwards mayb
 - Same logic to the admin and teacher section.
 
 Also optimized the server part.
+
+### 18-06-11
+
+#### Altered
+
+- CSS layout of `adminProfile.vue`

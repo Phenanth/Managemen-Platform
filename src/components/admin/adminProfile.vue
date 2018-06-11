@@ -12,14 +12,15 @@
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Name:</label>
 					<div class="userdata">
-						<span> {{ this.userdata.name }}
-					</span></div>
+						<span> {{ this.userdata.name }}</span>
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">maxNum:</label>
 					<div class="userdata">
-						<span class="userdata"> {{ this.userdata.maxNum }}</span></div>
+						<span> {{ this.userdata.maxNum }}</span>
 					</div>
+				</div>
 			</form>
 		</div>
 		<div v-else-if=" presentTab == 'safety' " class="admin-content">
@@ -162,6 +163,10 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	padding-left: 0px;
+}
+
+.form-horizontal {
+	width: 200px;
 }
 
 .info {

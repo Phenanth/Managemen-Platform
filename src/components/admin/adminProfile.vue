@@ -9,14 +9,14 @@
 
 		<div v-if=" presentTab == 'profile' " class="admin-content">
 			<form class="form-horizontal">
-				<div class="form-group">
-					<label for="" class="col-md-4 info">Name:</label>
+				<div class="info-section form-group">
+					<label for="" class="col-md-3 info">Name:</label>
 					<div class="userdata">
 						<span> {{ this.userdata.name }}</span>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="" class="col-md-4 info">maxNum:</label>
+				<div class="info-section form-group">
+					<label for="" class="col-md-3 info">maxNum:</label>
 					<div class="userdata">
 						<span> {{ this.userdata.maxNum }}</span>
 					</div>
@@ -126,6 +126,10 @@ export default {
 }
 </script>
 <style>
+.admin {
+	min-width: 992px;
+}
+
 .nav-tabs {
 	border-bottom: 1px solid #78bfba;
 }
@@ -165,7 +169,7 @@ export default {
 	padding-left: 0px;
 }
 
-.form-horizontal {
+.info-section {
 	width: 200px;
 }
 

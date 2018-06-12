@@ -5,24 +5,24 @@
 		<!-- Navbar -->
 		<nav class="navbar navbar-fixed-top">
 			<div class="brand-box">
-				<span><b>User</b>:{{ username }}</span>
+				<span><b>USER</b>:{{ username }}</span>
 			</div>
 			<button class="btn-logout" v-on:click="logout()">Log Out</button>
 		</nav>
 
 		<div class="sidebar">
 			<div class="sidebar-tabs" v-if="isStudent">
-				<router-link class="sidebar-tab" v-bind:class="{ active : true }" v-bind:to="studentProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active : false }"  v-bind:to="studentViewOfTeacherPath">Teacher View</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : page1 }" v-bind:to="studentProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : page2 }"  v-bind:to="studentViewOfTeacherPath">Teacher View</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
-				<router-link class="sidebar-tab" v-bind:class="{ active: true}" v-bind:to="adminProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="adminStuListPath">StuList</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="adminTchListPath">TchList</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">StuList</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">TchList</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isTeacher">
-				<router-link class="sidebar-tab" v-bind:class="{ active: true}" v-bind:to="teacherProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: false}" v-bind:to="teacherStuHandlePath">StuHandle</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="teacherProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">StuHandle</router-link>
 			</div>
 			<div v-else></div>
 		</div>
@@ -49,19 +49,61 @@ export default {
 	// Will be optimized to use localStorage in the future.
 	computed: {
 		isStudent: function () {
-			let roleCheckStudent = new RegExp('/student*', 'g')
-			let arrStudent = roleCheckStudent.exec(this.$route.path)
-			return arrStudent
+			let token = JSON.parse(store.getters.showTokenState)
+			return token.role == 'student'
 		},
 		isAdmin: function () {
-			let roleCheckAdmin = new RegExp('/admin*', 'g')
-			let arrAdmin = roleCheckAdmin.exec(this.$route.path)
-			return arrAdmin
+			let token = JSON.parse(store.getters.showTokenState)
+			return token.role == 'admin'
 		},
 		isTeacher: function() {
-			let roleCheckTeacher = new RegExp('/teacher*', 'g')
-			let arrTeacher = roleCheckTeacher.exec(this.$route.path)
-			return arrTeacher
+			let token = JSON.parse(store.getters.showTokenState)
+			return token.role == 'teacher'
+		},
+		page1: function () {
+			let pageCheck = new RegExp('/profile', 'g')
+			let arr = pageCheck.exec(this.$route.path)
+			if (arr) {
+				return true
+			} else {
+				return false
+			}
+		},
+		page2: function () {
+			let pageCheck = new RegExp('/view-of-tch', 'g')
+			let arr = pageCheck.exec(this.$route.path)
+			if (arr) {
+				return true
+			} else {
+				return false
+			}
+		},
+		page3: function () {
+			let pageCheck = new RegExp('/stu-handle', 'g')
+			let arr = pageCheck.exec(this.$route.path)
+			if (arr) {
+				return true
+			} else {
+				return false
+			}
+		},
+		page4: function () {
+			let pageCheck = new RegExp('/stu-list')
+			let arr = pageCheck.exec(this.$route.path)
+			if (arr) {
+				return true
+			} else {
+				return false
+			}
+		},
+		page5: function () {
+			let pageCheck = new RegExp('/tch-list')
+			let arr = pageCheck.exec(this.$route.path)
+			if (arr) {
+				return true
+			} else {
+				return false
+			}
 		}
 	},
 	methods: {
@@ -88,9 +130,20 @@ nav {
 
 html, body {
 	height: 100%;
+	min-width: 992px;
 	margin: 0px;
 	border: 3px solid #0EA8A3; /* Manjaro green */
 	background-color: #F5FFFF;
+}
+
+a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+a:focus {
+	color: white;
+	text-decoration: none;
 }
 
 b {

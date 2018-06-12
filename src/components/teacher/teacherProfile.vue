@@ -9,28 +9,28 @@
 
 		<div v-if=" presentTab == 'profile' " class="tch-content">
 			<form class="form-horizontal">
-				<div class="form-group">
+				<div class="info-section form-group">
 					<label for="" class="col-md-4 info">Name:</label>
 					<div class="userdata">
 						<span> {{ this.userdata.name }}</span>
 					</div>
 				</div>
-				<div class="form-group">
+				<div class="info-section form-group">
 					<label for="" class="col-md-4 info">Sex:</label>
 					<div class="userdata">
 						<span class="userdata"> {{ this.userdata.sex }}</span></div>
 					</div>
-				<div class="form-group">
+				<div class="info-section form-group">
 					<label for="" class="col-md-4 info">Position:</label>
 					<div class="userdata">
 						<span class="userdata"> {{ this.userdata.position }}</span></div>
 					</div>
-				<div class="form-group">
+				<div class="info-section form-group">
 					<label for="" class="col-md-4 info">Direction:</label>
 					<div class="userdata">
 						<span class="userdata"> {{ this.userdata.direction }}</span></div>
 					</div>
-				<div class="form-group">
+				<div class="info-section form-group">
 					<label for="" class="col-md-4 info">Phone:</label>
 					<div class="userdata">
 						<span class="userdata"> {{ this.userdata.phone }}</span></div>
@@ -146,6 +146,9 @@ export default {
 }
 </script>
 <style>
+.teacher {
+	min-width: 992px;
+}
 .nav-tabs {
 	border-bottom: 1px solid #78bfba;
 }
@@ -183,6 +186,10 @@ export default {
 	flex-direction: column;
 	align-items: center;
 	padding-left: 0px;
+}
+
+.info-section {
+	width: 230px;
 }
 
 .info {

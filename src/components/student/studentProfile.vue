@@ -162,6 +162,10 @@ export default {
 }
 </script>
 <style>
+.student {
+	min-width: 992px;
+}
+
 .nav-tabs {
 	border-bottom: 1px solid #78bfba;
 }
@@ -170,7 +174,7 @@ export default {
 	padding-right: 32px;
 }
 .nav > li > a:hover {
-	background-color: #E5F5F5;
+	background-color: #3fb1b1;
 }
 .nav > li {
 	margin-left: 10px;

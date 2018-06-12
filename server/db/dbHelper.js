@@ -63,7 +63,7 @@ const Login = (req, res) => {
 	});
 }
 
-const Data = (req, res) => {
+const UserData = (req, res) => {
 
 	let queryString = {
 		sql: 'SELECT id, name, sex, major, classId, phone, state, tutorId from ? where id=?',
@@ -125,7 +125,7 @@ const Data = (req, res) => {
 
 }
 
-const changePassword = (req, res) => {
+const ChangePassword = (req, res) => {
 
 	let queryString = {
 		sql: 'SELECT password AS solution FROM ? WHERE id = ?',
@@ -172,12 +172,33 @@ const changePassword = (req, res) => {
 	
 }
 
+const TeacherData = (req, res) => {
+	let queryString = {
+		sql: 'SELECT * from teacher',
+		timeout: 40000
+	};
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Operation: Teacher Data, State: 200');
+			res.json({
+				info: 200,
+				success: true,
+				result: results
+			});
+		}
+	});
+}
+
 module.exports = (router) => {
 
 	router.post('/login', Login);
 
-	router.post('/data', Data);
+	router.post('/userData', UserData);
 
-	router.post('/changePassword', changePassword);
+	router.post('/changePassword', ChangePassword);
+
+	router.get('/teacherData', TeacherData);
 
 }

@@ -179,3 +179,13 @@ Also optimized the server part.
 #### Altered
 
 - CSS layout of `adminProfile.vue`
+
+### 18-06-12
+
+#### Worked On
+
+- Some optimization of the CSS of the teacherProfile.vue and adminProfile.vue
+
+- Added logic of teacherView.vue in student section
+
+Next time I might be working on the component version of v-for in `view-of-tch.vue`. See the example In here: [Component version of v-for](https://cn.vuejs.org/v2/guide/list.html), check the todo-item part. (Maybe also the paging of the list, how many rows in one single page depends on the height of the component.)

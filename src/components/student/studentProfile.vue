@@ -44,7 +44,9 @@
 				</div>
 				<div class="form-group">
 					<label for="" class="col-md-4 info">Tutor Id:</label>
-					<span class="userdata"> {{ this.userdata.tutorId }}</span>
+					<div class="userdata">
+						<span class="userdata"> {{ this.userdata.tutorId }}</span>
+					</div>
 				</div>
 			</form>
 		</div>
@@ -110,13 +112,22 @@ export default {
 		}) => {
 			if (data.success) {
 				let queried = data.queried
+				let state = {
+					state: queried.state
+				}
 				this.userdata.name = queried.name
 				this.userdata.sex = queried.sex
 				this.userdata.major = queried.major
 				this.userdata.classId = queried.classId
 				this.userdata.phone = queried.phone
 				this.userdata.state = queried.state
-				this.userdata.tutorId = queried.tutorId
+				if (queried.tutorId != null) {
+					this.userdata.tutorId = queried.tutorId
+				} else {
+					this.userdata.tutorId = 'NULL'
+				}
+				state = JSON.stringify(state)
+				store.dispatch('changeTutorState', state)
 			}
 		})
 	},
@@ -162,6 +173,7 @@ export default {
 }
 </script>
 <style>
+
 .student {
 	min-width: 992px;
 }
@@ -214,6 +226,7 @@ export default {
 }
 
 .userdata {
+	width: 225px;
 	text-align: left;
 	font-size: 20px;
 	color: #505050;

@@ -40,5 +40,8 @@ export default {
 	},
 	teacherData () {
 		return instance.get('/api/teacherData')
+	},
+	changeTutor (data) {
+		return instance.post('/api/changeTutor', data)
 	}
 }

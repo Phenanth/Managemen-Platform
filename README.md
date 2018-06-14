@@ -6,18 +6,21 @@
 
 index.html
 	login.html
-	(template.html)
+	(user.html)
 		student.html
-			stu-listOfIns.html
-			stu-info.html
-			subChange.html
+			stu-Profile.html
+			logic:pswdChange
+			stu-viewOfTeachers.html
+			logic:subChange
 		admin.html
-			adm-listOfStu.html(The third process of accepting the submit of changing the instructor of a student.)
+			adm-Profile.html
+			adm-listOfStu.html
+			(The third process of accepting the submit of changing the instructor of a student. (May be deleted.))
 			adm-listOfIns.html
-			adm-info.html
 		teacher.html
-			tch-listOfMyStu.html(The second process of accepting the submit of changing the instructor of a student.)
-			tch-info.html
+			tch-Profile.html
+			tch-listOfMyStu.html
+			(The second process of accepting the submit of changing the instructor of a student. (May be the last process since the admin role in this logic would not be necessary.))
 
 ## Router Example
 
@@ -53,7 +56,7 @@ In the `stu-info.html`, student can go ot `subChange.html` to submit their new i
 
 ### Others
 
-User including students, teachers, administrators can change their login password in their `info.html`.
+User including students, teachers, administrators can change their login password in their `profile.html`.
 
 ## Build Setup
 
@@ -189,3 +192,23 @@ Also optimized the server part.
 - Added logic of teacherView.vue in student section
 
 Next time I might be working on the component version of v-for in `view-of-tch.vue`. See the example In here: [Component version of v-for](https://cn.vuejs.org/v2/guide/list.html), check the todo-item part. (Maybe also the paging of the list, how many rows in one single page depends on the height of the component.)
+
+### 18-06-14
+
+#### Worked On
+
+- Created component to display each member of a list.
+
+Component `list-item` is in `/src/main.js`, I will add a prop so the button won't be rendered when the user already have a tutor.
+
+- Logic of tutor choosing.
+
+May need to add title for each column and optimize the CSS design, and the disable style isn't finished.
+
+#### Next Steps
+
+- Paging of the list of tutors.
+
+- Disable the choosed student from choosing new tutors.
+
+- Find some icons to decorate the webpage.

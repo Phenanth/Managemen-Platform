@@ -191,6 +191,31 @@ const TeacherData = (req, res) => {
 	});
 }
 
+const ChangeTutor = (req, res) => {
+	let queryString = {
+		sql: 'UPDATE students SET tutorId=?,state=\'待定\' WHERE id=?',
+		values: [req.body.tutorId, req.body.id],
+		timeout: 40000
+	};
+
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error)
+			res.json({
+				info: 304,
+				success: false,
+				message: 'Database Error.'
+			})
+		} else {
+			console.log('Operation Change Tutor, State: 200');
+			res.json({
+				info: 200,
+				success: true
+			})
+		}
+	})
+}
+
 module.exports = (router) => {
 
 	router.post('/login', Login);
@@ -200,5 +225,7 @@ module.exports = (router) => {
 	router.post('/changePassword', ChangePassword);
 
 	router.get('/teacherData', TeacherData);
+
+	router.post('/changeTutor', ChangeTutor);
 
 }

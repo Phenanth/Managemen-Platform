@@ -2,16 +2,14 @@
 <template>
 	<div class="student">
 		<!-- <h1>Student View Of Teacher</h1> -->
-				<ul class="nav nav-tabs head-tabs">
+		<ul class="nav nav-tabs head-tabs">
 			 <li role="presentation" v-bind:class="{ activeTab: isActive == 'list' }" v-on:click="alterTab('list')"><a>List</a></li>
 			 <li role="presentation" v-bind:class="{ activeTab: isActive == 'submit' }" v-on:click="alterTab('submit')""><a>Submit</a></li>
 		</ul>
 
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
-				<li v-for="(item, index) in dataItems">
-					{{ index }} - {{ item.id }} - {{ item.name }} - {{ item.sex }} - {{ item.position }} - {{ item.direction }} - {{ item.phone }}
-				</li>
+				<list-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item"></list-item>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'submit' " class="stu-content">
@@ -31,15 +29,14 @@
 </template>
 <script>
 import api from '../../api.js'
+import store from '../../store'
 export default {
 	name: 'studentViewOfTeacher',
 	data: function () {
 		return {
 			presentTab: 'list',
 			dataItems: [],
-			alter: {
-				tutorId: ''
-			}
+			state: ''
 		}
 	},
 	computed: {
@@ -50,9 +47,6 @@ export default {
 	methods: {
 		alterTab: function (routes) {
 			this.presentTab = routes
-		},
-		doChange: function () {
-
 		}
 	},
 	mounted: function () {
@@ -130,5 +124,44 @@ li {
 
 .btn-doChange  {
 	margin-top: 30px;
+}
+
+.item {
+	color: #505050;
+	border: 2px solid #E5F5F5;
+	margin: 2px;
+}
+
+.item-id, .item-index, .item-name, .item-sex, .item-position, .item-direction, .item-phone {
+	display: inline-block;
+	margin: 3px;
+}
+
+.item-index {
+	width: 50px;
+}
+
+.item-id {
+	width: 100px;
+}
+
+.item-name {
+	width: 70px;
+}
+
+.item-sex {
+	width: 30px;
+}
+
+.item-position {
+	width: 50px;
+}
+
+.item-direction {
+	width: 70px;
+}
+
+.item-phone {
+	width: 140px;
 }
 </style>

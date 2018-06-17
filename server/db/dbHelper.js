@@ -216,7 +216,7 @@ const StudentData = (req, res) => {
 
 } ;
 
-const MyStudent = (req, res) => {
+const MyStudents = (req, res) => {
 
 	let queryString = {
 		sql: 'SELECT * FROM students WHERE tutorId=?',
@@ -228,11 +228,29 @@ const MyStudent = (req, res) => {
 		if (error) {
 			console.log(error);
 		} else {
+			let resultT = [];
 			console.log('Operation: My Student, State: 200');
+			for (var i = 0; i < results.length; i++) {
+				let temp = {
+					id: results[i].id,
+					name: results[i].name,
+					sex: results[i].sex,
+					major: results[i].major,
+					classId: results[i].classId,
+					phone: results[i].phone,
+					state: results[i].state,
+					tutorId: results[i].tutorId,
+					display: false
+				};
+				if (results[i].state != '选定') {
+					temp.display = true;
+				}
+				resultT.push(temp);
+			}
 			res.json({
 				info: 200,
 				success: true,
-				result: results
+				result: resultT
 			});
 		}
 	});
@@ -306,7 +324,7 @@ module.exports = (router) => {
 
 	router.get('/studentData', StudentData);
 
-	router.post('/myStudent', MyStudent);
+	router.post('/myStudents', MyStudents);
 
 	router.post('/changeTutor', ChangeTutor);
 

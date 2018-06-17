@@ -9,8 +9,8 @@
 
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
-				<student-item class="titleItem" v-bind:index="-1" v-bind:item="titleItem"></student-item>
-				<student-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item" v-bind:key="item.id"></student-item>
+				<student-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></student-item>
+				<student-item v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="false"></student-item>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'delete' " class="stu-content">

@@ -241,3 +241,11 @@ Alter the database, add 'delete' column and the logic of set delete column with 
 - Optimize the CSS style of whole website.
 
 Such as adding icons for the web, adding icons for the page, re-design the list items... and so on.
+
+#### Later This Day
+
+- Optimized the components
+
+The buttons of the two components can be optional visible, after the optimization. 
+
+I exactlly want the page to refresh after the checkStudent operation, but I haven't found the method to do it yet, and I think the judge of where the button is visible shouldn't be done in the server, but There isn't any other way to call the /api/myStudent function so I think it performs well, for now.

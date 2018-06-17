@@ -9,8 +9,8 @@
 
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
-				<teacher-item class="titleItem" v-bind:index="-1" v-bind:item="titleItem"></teacher-item>
-				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item" v-bind:key="item.id"></teacher-item>
+				<teacher-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></teacher-item>
+				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="display"></teacher-item>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'submit' " class="stu-content">
@@ -54,6 +54,14 @@ export default {
 	computed: {
 		isActive: function () {
 			return this.presentTab
+		},
+		display: function () {
+			let state = JSON.parse(store.getters.showTutorState).state
+			if (state == '待定' || state == '未选') {
+				return true
+			} else {
+				return false
+			}
 		}
 	},
 	methods: {
@@ -76,6 +84,8 @@ export default {
 						alert(data.message)
 					}
 				})
+			} else {
+				alert('You already choosed your tutor.')
 			}
 		}
 	},
@@ -159,6 +169,8 @@ li {
 
 .titleItem {
 	background-color: #0EA8A3;
+	display: flex;
+	justify-content: flex-start;
 }
 
 .item {

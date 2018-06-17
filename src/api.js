@@ -45,8 +45,8 @@ export default {
 	studentData () {
 		return instance.get('/api/studentData')
 	},
-	myStudent ( data ) {
-		return instance.post('/api/myStudent', data)
+	myStudents ( data ) {
+		return instance.post('/api/myStudents', data)
 	},
 	changeTutor ( data ) {
 		return instance.post('/api/changeTutor', data)

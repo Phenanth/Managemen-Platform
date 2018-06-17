@@ -9,8 +9,8 @@
 
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
-				<student-item class="titleItem" v-bind:index="-1" v-bind:item="titleItem"></student-item>
-				<student-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item" v-bind:key="item.id"></student-item>
+				<student-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></student-item>
+				<student-item class="listItem" v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="item.display"></student-item>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'delete' " class="stu-content">
@@ -66,7 +66,7 @@ export default {
 		let opt = {
 			tutorId: JSON.parse(store.getters.showTokenState).username
 		};
-		api.myStudent(opt).then(({
+		api.myStudents(opt).then(({
 			data
 		}) => {
 			if (data.success) {
@@ -145,8 +145,14 @@ li {
 
 .titleItem {
 	background-color: #0EA8A3;
+	display: flex;
+	justify-content: flex-start;
 }
 
+.listItem {
+	display: flex;
+	justify-content: flex-start;
+}
 
 .item {
 	color: #505050;

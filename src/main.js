@@ -9,8 +9,8 @@ import api from './api.js'
 Vue.config.productionTip = false
 
 Vue.component('teacher-item', {
-	props: ['index', 'item'],
-	template: '<div class="item"><div class="item-index">{{ index + 1 }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name}}</div><div class="item-sex">{{ item.sex }}</div><div class="item-position">{{ item.position }}</div><div class="item-direction">{{ item.direction }}</div><div class="item-phone">{{ item.phone }}</div><button v-on:click="subTutor(item.id)">Sub</button></div>',
+	props: ['index', 'item', 'display'],
+	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name}}</div><div class="item-sex">{{ item.sex }}</div><div class="item-position">{{ item.position }}</div><div class="item-direction">{{ item.direction }}</div><div class="item-phone">{{ item.phone }}</div><button v-if="display" v-on:click="subTutor(item.id)">Sub</button></div>',
 	methods: {
 		subTutor: function (tutorId) {
 			let state = JSON.parse(store.getters.showTutorState).state
@@ -36,16 +36,20 @@ Vue.component('teacher-item', {
 })
 
 Vue.component('student-item', {
-	props: ['index', 'item'],
-	template: '<div class="item"><div class="item-index">{{ index + 1 }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name }}</div><div class="item-sex">{{ item.sex }}</div><div class="item-major">{{ item.major }}</div><div class="item-classId">{{ item.classId }}</div><div class="item-phone">{{ item.phone }}</div><div class="item-state">{{ item.state }}</div><div class="item-tutorId">{{ item.tutorId }}</div><button v-on:click="checkStudent(item.id)">Check</button></div>',
+	props: ['index', 'item', 'display'],
+	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name }}</div><div class="item-sex">{{ item.sex }}</div><div class="item-major">{{ item.major }}</div><div class="item-classId">{{ item.classId }}</div><div class="item-phone">{{ item.phone }}</div><div class="item-state">{{ item.state }}</div><div class="item-tutorId">{{ item.tutorId }}</div><button v-if="display" v-on:click="checkStudent(item.id)">Check</button></div>',
 	methods: {
 		checkStudent: function (id) {
+			let opt = {
+				id: id
+			}
 			api.checkStudent(opt).then(({
 				data
 			}) => {
 				if (data.success) {
 					alert('You have checked ' + id + ' successfully.')
-					this.$route.go(0)
+					// When altered, it won't refresh itself automatically.
+					//this.$route.go(0)
 				} else {
 					alert(data.message)
 				}

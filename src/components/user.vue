@@ -133,6 +133,8 @@ html, body {
 	min-width: 992px;
 	margin: 0px;
 	border: 3px solid #0EA8A3; /* Manjaro green */
+	border-bottom: transparent;
+	border-right: transparent;
 	background-color: #F5FFFF;
 }
 
@@ -179,7 +181,7 @@ b {
 	float: left;
 	margin-top: -15px;
 	padding-top: 0px;
-	height: calc(100vh - 56px);
+	height: calc(100vh - 51px);
 	width: 140px;
 	background-color: #97CACA;
 }

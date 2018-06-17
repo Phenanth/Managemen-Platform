@@ -17,12 +17,12 @@
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
 				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">StuList</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">TchList</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">Student List</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">Teacher List</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isTeacher">
 				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="teacherProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">StuHandle</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">My Students</router-link>
 			</div>
 			<div v-else></div>
 		</div>

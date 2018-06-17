@@ -138,7 +138,7 @@ export default {
 	padding-right: 32px;
 }
 .nav > li > a:hover {
-	background-color: #E5F5F5;
+	background-color: #3fb1b1;
 }
 .nav > li {
 	margin-left: 10px;

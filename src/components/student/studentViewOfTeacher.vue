@@ -9,7 +9,8 @@
 
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
-				<list-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item"></list-item>
+				<teacher-item class="titleItem" v-bind:index="-1" v-bind:item="titleItem"></teacher-item>
+				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index" v-bind:item="item" v-bind:key="item.id"></teacher-item>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'submit' " class="stu-content">
@@ -17,7 +18,7 @@
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="oldPassword">Tutor Id:</label>
 					<div class="col-md-7">
-						<input type="password" class="form-control" placeholder="Tutor Id" v-model="alter.tutorId">
+						<input type="text" class="form-control" placeholder="Tutor Id" v-model="alter.tutorId">
 					</div>
 				</div>
 				
@@ -36,6 +37,17 @@ export default {
 		return {
 			presentTab: 'list',
 			dataItems: [],
+			titleItem: {
+				id: 'ID',
+				name: 'Name',
+				sex: 'Sex',
+				position: 'Position',
+				direction: 'Direction',
+				phone: 'Phone'
+			},
+			alter: {
+				tutorId: ''
+			},
 			state: ''
 		}
 	},
@@ -47,6 +59,24 @@ export default {
 	methods: {
 		alterTab: function (routes) {
 			this.presentTab = routes
+		},
+		doChange: function () {
+			let state = JSON.parse(store.getters.showTutorState).state
+			if (state == '待定' || state == '未选') {
+				let opt = {
+					id: JSON.parse(store.getters.showTokenState).username,
+					tutorId: this.alter.tutorId
+				}
+				api.changeTutor(opt).then(({
+					data
+				}) => {
+					if (data.success) {
+						alert('You have choosed ' + this.alter.tutorId + ' as your tutor.')
+					} else {
+						alert(data.message)
+					}
+				})
+			}
 		}
 	},
 	mounted: function () {
@@ -61,6 +91,7 @@ export default {
 }
 </script>
 <style>
+
 li {
 	list-style: none;
 }
@@ -124,6 +155,10 @@ li {
 
 .btn-doChange  {
 	margin-top: 30px;
+}
+
+.titleItem {
+	background-color: #0EA8A3;
 }
 
 .item {

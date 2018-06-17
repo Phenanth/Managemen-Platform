@@ -26,22 +26,33 @@ instance.interceptors.response.use(response => {
 })
 
 export default {
-	doLogin (data) {
+	
+	doLogin ( data ) {
 		return instance.post('/api/login', data)
 	},
 	isLogin () {
 		return instance.get('/api/isLogin')
 	},
-	getData (data) {
+	getData ( data ) {
 		return instance.post('/api/userData', data)
 	},
-	changePassword (data) {
+	changePassword ( data ) {
 		return instance.post('/api/changePassword', data)
 	},
 	teacherData () {
 		return instance.get('/api/teacherData')
 	},
-	changeTutor (data) {
+	studentData () {
+		return instance.get('/api/studentData')
+	},
+	myStudent ( data ) {
+		return instance.post('/api/myStudent', data)
+	},
+	changeTutor ( data ) {
 		return instance.post('/api/changeTutor', data)
+	},
+	checkStudent ( data ) {
+		return instance.post('/api/checkStudent', data)
 	}
+
 }

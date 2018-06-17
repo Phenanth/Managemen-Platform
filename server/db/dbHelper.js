@@ -50,7 +50,7 @@ const Login = (req, res) => {
 					info: 304,
 					success: false,
 					message: 'Wrong password.'
-				})
+				});
 			}
 		} else {
 			console.log('Operation: Login, State: 404, Message: User not existed.');
@@ -61,7 +61,7 @@ const Login = (req, res) => {
 			});
 		}
 	});
-}
+};
 
 const UserData = (req, res) => {
 
@@ -96,7 +96,7 @@ const UserData = (req, res) => {
 					state: result.state,
 					tutorId: result.tutorId
 				}
-			})
+			});
 		} else if (req.body.role == 'admin') {
 			res.json({
 				info: 200,
@@ -106,7 +106,7 @@ const UserData = (req, res) => {
 					name: result.name,
 					maxNum: result.maxNum
 				}
-			})
+			});
 		} else if (req.body.role == 'teacher') {
 			res.json({
 				info: 200,
@@ -119,11 +119,11 @@ const UserData = (req, res) => {
 					direction: result.direction,
 					phone: result.phone
 				}
-			})
+			});
 		}
 	});
 
-}
+};
 
 const ChangePassword = (req, res) => {
 
@@ -136,7 +136,7 @@ const ChangePassword = (req, res) => {
 		sql: 'UPDATE ? SET password=? WHERE id=?',
 		values: [req.body.newPassword, req.body.username],
 		timeout: 40000
-	}
+	};
 
 	if (req.body.role == 'student') {
 		queryString.sql = 'SELECT password AS solution FROM students WHERE id=?'
@@ -156,7 +156,7 @@ const ChangePassword = (req, res) => {
 				info: 404,
 				success: false,
 				message: 'Wrong former password.'
-			})
+			});
 		} else {
 			db.query(queryString2, function (error, results, fields) {
 				console.log ('Operation: Change Password, state: 200, Message: Password changed, please re-login.');
@@ -164,19 +164,21 @@ const ChangePassword = (req, res) => {
 					info: 200,
 					success: true,
 					message: 'Password changed, please re-login.'
-				})
+				});
 			});
 			
 		}
 	});
 	
-}
+};
 
 const TeacherData = (req, res) => {
+
 	let queryString = {
 		sql: 'SELECT * from teacher',
 		timeout: 40000
 	};
+
 	db.query(queryString, function (error, results, fields) {
 		if (error) {
 			console.log(error);
@@ -189,9 +191,56 @@ const TeacherData = (req, res) => {
 			});
 		}
 	});
-}
+
+};
+
+const StudentData = (req, res) => {
+
+	let queryString = {
+		sql: 'SELECT * from students',
+		timeout: 40000
+	};
+
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Operation: Student Data, State: 200');
+			res.json({
+				info: 200,
+				success: true,
+				result: results
+			});
+		}
+	});
+
+} ;
+
+const MyStudent = (req, res) => {
+
+	let queryString = {
+		sql: 'SELECT * FROM students WHERE tutorId=?',
+		values: [req.body.tutorId],
+		timeout: 40000
+	};
+
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error);
+		} else {
+			console.log('Operation: My Student, State: 200');
+			res.json({
+				info: 200,
+				success: true,
+				result: results
+			});
+		}
+	});
+
+};
 
 const ChangeTutor = (req, res) => {
+
 	let queryString = {
 		sql: 'UPDATE students SET tutorId=?,state=\'待定\' WHERE id=?',
 		values: [req.body.tutorId, req.body.id],
@@ -200,21 +249,50 @@ const ChangeTutor = (req, res) => {
 
 	db.query(queryString, function (error, results, fields) {
 		if (error) {
-			console.log(error)
+			console.log(error);
 			res.json({
 				info: 304,
 				success: false,
 				message: 'Database Error.'
-			})
+			});
 		} else {
 			console.log('Operation Change Tutor, State: 200');
 			res.json({
 				info: 200,
 				success: true
-			})
+			});
 		}
-	})
-}
+	});
+
+};
+
+const CheckStudent = (req, res) => {
+
+	let queryString = {
+		sql: 'UPDATE students SET state=\'选定\' WHERE id=?',
+		values: [req.body.id],
+		timeout: 40000
+	};
+
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error);
+			res.json({
+				info: 304,
+				success: false,
+				message: 'Database Error.'
+			});
+		} else {
+			console.log('Operation: Check Student, State: 200');
+			res.json({
+				info: 200,
+				success: true
+			});
+		}
+	});
+
+};
+
 
 module.exports = (router) => {
 
@@ -226,6 +304,12 @@ module.exports = (router) => {
 
 	router.get('/teacherData', TeacherData);
 
+	router.get('/studentData', StudentData);
+
+	router.post('/myStudent', MyStudent);
+
 	router.post('/changeTutor', ChangeTutor);
+
+	router.post('/checkStudent', CheckStudent);
 
 }

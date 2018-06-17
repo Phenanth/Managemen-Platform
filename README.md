@@ -212,3 +212,32 @@ May need to add title for each column and optimize the CSS design, and the disab
 - Disable the choosed student from choosing new tutors.
 
 - Find some icons to decorate the webpage.
+
+
+### 18-06-17
+
+#### Worked On
+
+- Added pages of each section
+
+- Devide component to two sub-components
+
+#### Next 
+
+- Paging
+
+Add paging for all the list pages. ( Also sorting, if possible.)
+
+- Optimize the component
+
+So the sub button would be visible if only present user is a student and his/her state is not checked or haven't choose one and isn't a title.
+
+And the Check button would be visible if only the state of the student is 'not checked' and the role is teacher, also not a title.
+
+- Add 'Delete' logic of each section.
+
+Alter the database, add 'delete' column and the logic of set delete column with true to present delete a student or teacher.
+
+- Optimize the CSS style of whole website.
+
+Such as adding icons for the web, adding icons for the page, re-design the list items... and so on.

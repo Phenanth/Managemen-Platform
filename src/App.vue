@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import api from './api.js'
+import store from './store'
 export default {
   name: 'App'
 }

@@ -249,3 +249,11 @@ Such as adding icons for the web, adding icons for the page, re-design the list 
 The buttons of the two components can be optional visible, after the optimization. 
 
 I exactlly want the page to refresh after the checkStudent operation, but I haven't found the method to do it yet, and I think the judgement of where the button is visible shouldn't be done in the server, but There isn't any other way to call the /api/myStudent function so I think it will be like now until I find something is wrong.
+
+### 18-06-18
+
+#### Worked On
+
+- Added paging of the lists.
+
+- Added delete logic (admin and teacher)

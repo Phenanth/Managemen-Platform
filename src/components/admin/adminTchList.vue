@@ -10,7 +10,7 @@
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
 				<teacher-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></teacher-item>
-				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="false"></teacher-item>
+				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + (page.presentPage - 1) * 10 + 1" v-bind:item="item" v-bind:key="item.id" :display="false"></teacher-item>
 			</ul>
 			<ul class="pager">
 				<li><a href="#" v-on:click="formerPage()">Previous</a></li>
@@ -34,6 +34,7 @@
 </template>
 <script>
 import api from '../../api.js'
+import router from '../../router'
 export default {
 	name: 'adminTchList',
 	data: function () {
@@ -90,6 +91,22 @@ export default {
 			} else {
 				alert('You have reached the last page.')
 			}
+		},
+		doChange: function () {
+			let opt = {
+				id: this.alter.tutorId,
+				role: 'teacher'
+			}
+			api.deleteUser(opt).then(({
+				data
+			}) => {
+				if (data.success) {
+					alert('You have deleted user ' + this.alter.tutorId + ' successfully.')
+					router.go(0)
+				} else {
+					alert(data.message)
+				}
+			})
 		}
 	},
 	computed: {

@@ -110,7 +110,6 @@ export default {
 		logout: function () {
 			store.dispatch('logout')
 			router.go(0)
-			router.push('/')
 		}
 	},
 	mounted: function () {

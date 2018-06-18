@@ -10,11 +10,11 @@
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
 				<student-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></student-item>
-				<student-item v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="false"></student-item>
+				<student-item v-for="(item, index) in dataItems" v-bind:index="index + (page.presentPage - 1) * 10 + 1" v-bind:item="item" v-bind:key="item.id" :display="false"></student-item>
 			</ul>
 			<ul class="pager">
-				<li><a href="#" v-on:click="formerPage()">Previous</a></li>
-				<li><a href="#" v-on:click="nextPage()">Next</a></li>
+				<li><a v-on:click="formerPage()">Previous</a></li>
+				<li><a v-on:click="nextPage()">Next</a></li>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'delete' " class="stu-content">
@@ -22,7 +22,7 @@
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="oldPassword">Student Id:</label>
 					<div class="col-md-7">
-						<input type="text" class="form-control" placeholder="Student Id" v-model="alter.tutorId">
+						<input type="text" class="form-control" placeholder="Student Id" v-model="alter.stuId">
 					</div>
 				</div>
 				
@@ -35,6 +35,7 @@
 <script>
 import api from '../../api.js'
 import store from '../../store'
+import router from '../../router'
 export default {
 	name: 'adminStuList',
 	data: function () {
@@ -52,7 +53,7 @@ export default {
 				tutorId: 'Tutor ID'
 			},
 			alter: {
-				tutorId: ''
+				stuId: ''
 			},
 			page: {
 				presentPage: 1,
@@ -93,6 +94,22 @@ export default {
 			} else {
 				alert('You have reached the last page.')
 			}
+		},
+		doChange: function () {
+			let opt = {
+				id: this.alter.stuId,
+				role: 'student'
+			}
+			api.deleteUser(opt).then(({
+				data
+			}) => {
+				if (data.success) {
+					alert('You have deleted user ' + this.alter.stuId + ' successfully.')
+					router.go(0)
+				} else {
+					alert(data.message)
+				}
+			})
 		}
 	},
 	computed: {

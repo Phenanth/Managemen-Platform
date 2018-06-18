@@ -48,8 +48,7 @@ Vue.component('student-item', {
 			}) => {
 				if (data.success) {
 					alert('You have checked ' + id + ' successfully.')
-					// When altered, it won't refresh itself automatically.
-					//this.$route.go(0)
+					router.go(0)
 				} else {
 					alert(data.message)
 				}

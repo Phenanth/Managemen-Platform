@@ -53,6 +53,12 @@ export default {
 	},
 	checkStudent ( data ) {
 		return instance.post('/api/checkStudent', data)
+	},
+	deleteUser( data ) {
+		return instance.post('/api/deleteUser', data)
+	},
+	tutorDelete ( data ) {
+		return instance.post('/api/tutorDelete', data)
 	}
 
 }

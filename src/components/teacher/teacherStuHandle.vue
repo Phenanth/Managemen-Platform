@@ -35,6 +35,7 @@
 <script>
 import api from  './../../api.js'
 import store from './../../store'
+import router from '../../router'
 export default {
 	name: 'teacherStuHandle',
 	data: function () {
@@ -68,9 +69,10 @@ export default {
 	methods: {
 		getData: function () {
 			let opt = {
+				tutorId: JSON.parse(store.getters.showTokenState).username,
 				page: this.page.presentPage
-			}
-			api.studentData(opt).then(({
+			};
+			api.myStudents(opt).then(({
 				data
 			}) => {
 				if (data.success) {
@@ -98,19 +100,26 @@ export default {
 			} else {
 				alert('You have reached the last page.')
 			}
+		},
+		doChange: function () {
+			let opt = {
+				stuId: this.alter.stuId,
+				tutorId: JSON.parse(store.getters.showTokenState).username
+			}
+			api.tutorDelete(opt).then(({
+				data
+			}) => {
+				if (data.success) {
+					alert('You have deleted ' + this.alter.stuId + ' from your tutor list.')
+					router.go(0)
+				} else {
+					alert(data.message)
+				}
+			})
 		}
 	},
 	mounted: function () {
-		let opt = {
-			tutorId: JSON.parse(store.getters.showTokenState).username
-		};
-		api.myStudents(opt).then(({
-			data
-		}) => {
-			if (data.success) {
-				this.dataItems = data.result
-			}
-		})
+		this.getData()
 	}
 }
 </script>

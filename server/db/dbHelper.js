@@ -11,7 +11,7 @@ const Login = (req, res) => {
 	let table;
 	let validTime;
 	let queryString = {
-		sql: 'SELECT password AS solution FROM ? WHERE id = ?',
+		sql: 'SELECT password AS solution FROM ? WHERE id=? AND deleted=false',
 		values: [req.body.username],
 		timeout: 40000
 	};
@@ -23,11 +23,11 @@ const Login = (req, res) => {
 	}
 
 	if (req.body.role == 'student') {
-		queryString.sql = 'SELECT password AS solution FROM students WHERE id=?'
+		queryString.sql = 'SELECT password AS solution FROM students WHERE id=?  AND deleted=false'
 	} else if (req.body.role == 'admin') {
 		queryString.sql = 'SELECT password AS solution FROM manager WHERE id=?'
 	} else if (req.body.role == 'teacher') {
-		queryString.sql = 'SELECT password AS solution FROM teacher WHERE id=?'
+		queryString.sql = 'SELECT password AS solution FROM teacher WHERE id=?  AND deleted=false'
 	}
 
 	db.query(queryString, function(error, results, fields) {
@@ -175,7 +175,7 @@ const ChangePassword = (req, res) => {
 const TeacherData = (req, res) => {
 
 	let queryString = {
-		sql: 'SELECT * from teacher LIMIT ?, ?',
+		sql: 'SELECT * from teacher WHERE deleted=false LIMIT ?, ?',
 		values: [(req.body.page - 1) * 10, (req.body.page - 1) * 10 + 10],
 		timeout: 40000
 	};
@@ -186,7 +186,7 @@ const TeacherData = (req, res) => {
 		} else {
 			console.log('Operation: Teacher Data, State: 200');
 			let queryString2 = {
-				sql: 'SELECT count(DISTINCT id) AS solution FROM teacher',
+				sql: 'SELECT count(DISTINCT id) AS solution FROM teacher WHERE deleted=false',
 				timeout: 40000
 			}; 
 			db.query(queryString2, function(error2, results2, fields2) {
@@ -210,7 +210,7 @@ const TeacherData = (req, res) => {
 const StudentData = (req, res) => {
 
 	let queryString = {
-		sql: 'SELECT * from students LIMIT ?, ?',
+		sql: 'SELECT * from students WHERE deleted=false LIMIT ?, ?',
 		values: [(req.body.page - 1) * 10, (req.body.page - 1) * 10 + 10],
 		timeout: 40000
 	};
@@ -221,7 +221,7 @@ const StudentData = (req, res) => {
 		} else {
 			console.log('Operation: Student Data, State: 200');
 			let queryString2 = {
-				sql: 'SELECT count(DISTINCT id) AS solution from students',
+				sql: 'SELECT count(DISTINCT id) AS solution from students  WHERE deleted=false',
 				timeout: 40000
 			};
 			db.query(queryString2, function (error2, results2, fields2) {
@@ -241,8 +241,8 @@ const StudentData = (req, res) => {
 const MyStudents = (req, res) => {
 
 	let queryString = {
-		sql: 'SELECT * FROM students WHERE tutorId=?',
-		values: [req.body.tutorId],
+		sql: 'SELECT * FROM students WHERE tutorId=? AND deleted=false LIMIT ?, ?',
+		values: [req.body.tutorId, (req.body.page - 1) * 10, (req.body.page - 1) * 10 + 10],
 		timeout: 40000
 	};
 
@@ -333,6 +333,92 @@ const CheckStudent = (req, res) => {
 
 };
 
+const DeleteUser = (req, res) => {
+
+	let queryString = {
+		sql: 'UPDATE SET deleted=true WHERE id=? AND deleted=false',
+		values: [req.body.id],
+		timeout: 40000
+	};
+
+	let queryString2 = {
+		sql: 'SELECT id from WHERE id=?',
+		values: [req.body.id],
+		timeout: 40000
+	};
+
+	if (req.body.role == 'student') {
+		queryString.sql = 'UPDATE students SET deleted=true WHERE id=?';
+		queryString2.sql = 'SELECT id AS solution from students WHERE id=?  AND deleted=false'
+	} else if (req.body.role == 'teacher') {
+		queryString.sql = 'UPDATE teacher SET deleted=true WHERE id=?';
+		queryString2.sql = 'SELECT id AS solution from teacher WHERE id=?  AND deleted=false'
+	}
+
+	db.query(queryString2, function (error2, results2, fields2) {
+		if (error2) {
+			console.log(error2);
+		} else {
+			if (results2[0]) {
+				db.query(queryString, function (error, results, fields) {
+					if (error) {
+						console.log(error);
+					} else {
+						console.log('Operation: Delete User, State: 200');
+						res.json({
+							info: 200,
+							success: true
+						});
+					}
+				});
+			} else {
+				console.log('Operation: Delete User, State: 404, Message: User not found');
+				res.json({
+					info: 404,
+					success: false,
+					message: 'User not found.'
+				});
+			}
+		}
+	});
+
+
+};
+
+const TutorDelete = (req, res) => {
+	let queryString = {
+		sql: 'SELECT id FROM students WHERE id=? AND deleted=false AND tutorId=?',
+		values: [req.body.stuId, req.body.tutorId],
+		timeout: 40000
+	};
+	let queryString2 = {
+		sql: 'UPDATE students SET tutorId=NULL, state=\'未选\' WHERE id=?',
+		values: [req.body.stuId],
+		timeout: 40000
+	};
+
+	db.query(queryString, function (error, results, fields) {
+		if (error) {
+			console.log(error);
+		} else if (results[0]) {
+			db.query(queryString2, function (error2, results2, fields2) {
+				console.log('Operation: Tutor Delete, State: 200');
+				res.json({
+					info: 200,
+					success: true
+				});
+			});
+		} else {
+			console.log('Operation: Tutor Delete, State: 304, Message: Iuput Error.');
+			res.json({
+				info: 304,
+				success: false,
+				message: 'User not exists, or isn`t in your tutor list.'
+			});
+		}
+	});
+
+}
 
 module.exports = (router) => {
 
@@ -351,5 +437,9 @@ module.exports = (router) => {
 	router.post('/changeTutor', ChangeTutor);
 
 	router.post('/checkStudent', CheckStudent);
+
+	router.post('/deleteUser', DeleteUser);
+
+	router.post('/tutorDelete', TutorDelete);
 
 }

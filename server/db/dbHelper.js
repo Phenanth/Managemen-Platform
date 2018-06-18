@@ -159,7 +159,7 @@ const ChangePassword = (req, res) => {
 			});
 		} else {
 			db.query(queryString2, function (error, results, fields) {
-				console.log ('Operation: Change Password, state: 200, Message: Password changed, please re-login.');
+				console.log ('Operation: Change Password, state: 200');
 				res.json({
 					info: 200,
 					success: true,
@@ -175,7 +175,8 @@ const ChangePassword = (req, res) => {
 const TeacherData = (req, res) => {
 
 	let queryString = {
-		sql: 'SELECT * from teacher',
+		sql: 'SELECT * from teacher LIMIT ?, ?',
+		values: [(req.body.page - 1) * 10, (req.body.page - 1) * 10 + 10],
 		timeout: 40000
 	};
 
@@ -184,11 +185,23 @@ const TeacherData = (req, res) => {
 			console.log(error);
 		} else {
 			console.log('Operation: Teacher Data, State: 200');
-			res.json({
-				info: 200,
-				success: true,
-				result: results
-			});
+			let queryString2 = {
+				sql: 'SELECT count(DISTINCT id) AS solution FROM teacher',
+				timeout: 40000
+			}; 
+			db.query(queryString2, function(error2, results2, fields2) {
+				if (error2) {
+					console.log(error2);
+				} else {
+					res.json({
+						info: 200,
+						success: true,
+						result: results,
+						maxPage: Math.floor(results2[0].solution / 10) + 1
+					});
+				}
+			})
+			
 		}
 	});
 
@@ -197,7 +210,8 @@ const TeacherData = (req, res) => {
 const StudentData = (req, res) => {
 
 	let queryString = {
-		sql: 'SELECT * from students',
+		sql: 'SELECT * from students LIMIT ?, ?',
+		values: [(req.body.page - 1) * 10, (req.body.page - 1) * 10 + 10],
 		timeout: 40000
 	};
 
@@ -206,11 +220,19 @@ const StudentData = (req, res) => {
 			console.log(error);
 		} else {
 			console.log('Operation: Student Data, State: 200');
-			res.json({
-				info: 200,
-				success: true,
-				result: results
+			let queryString2 = {
+				sql: 'SELECT count(DISTINCT id) AS solution from students',
+				timeout: 40000
+			};
+			db.query(queryString2, function (error2, results2, fields2) {
+				res.json({
+					info: 200,
+					success: true,
+					result: results,
+					maxPage: Math.floor(results2[0].solution / 10) + 1
+				});
 			});
+			
 		}
 	});
 
@@ -320,9 +342,9 @@ module.exports = (router) => {
 
 	router.post('/changePassword', ChangePassword);
 
-	router.get('/teacherData', TeacherData);
+	router.post('/teacherData', TeacherData);
 
-	router.get('/studentData', StudentData);
+	router.post('/studentData', StudentData);
 
 	router.post('/myStudents', MyStudents);
 

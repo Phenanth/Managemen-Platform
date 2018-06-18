@@ -39,11 +39,11 @@ export default {
 	changePassword ( data ) {
 		return instance.post('/api/changePassword', data)
 	},
-	teacherData () {
-		return instance.get('/api/teacherData')
+	teacherData ( data ) {
+		return instance.post('/api/teacherData', data)
 	},
-	studentData () {
-		return instance.get('/api/studentData')
+	studentData ( data ) {
+		return instance.post('/api/studentData', data)
 	},
 	myStudents ( data ) {
 		return instance.post('/api/myStudents', data)

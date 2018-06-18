@@ -12,6 +12,10 @@
 				<student-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></student-item>
 				<student-item class="listItem" v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="item.display"></student-item>
 			</ul>
+			<ul class="pager">
+				<li><a href="#" v-on:click="formerPage()">Previous</a></li>
+				<li><a href="#" v-on:click="nextPage()">Next</a></li>
+			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'delete' " class="stu-content">
 			<form class="form-horizontal">
@@ -49,6 +53,10 @@ export default {
 			},
 			alter: {
 				stuId: ''
+			},
+			page: {
+				presentPage: 1,
+				maxPage: 0
 			}
 		}
 	},
@@ -58,8 +66,38 @@ export default {
 		}
 	},
 	methods: {
+		getData: function () {
+			let opt = {
+				page: this.page.presentPage
+			}
+			api.studentData(opt).then(({
+				data
+			}) => {
+				if (data.success) {
+					this.dataItems = data.result
+					this.page.maxPage = data.maxPage
+				}
+			})
+		},
 		alterTab: function (routes) {
 			this.presentTab = routes
+		},
+		formerPage: function () {
+			if (this.page.presentPage > 1) {
+				this.page.presentPage = this.page.presentPage - 1
+				this.getData()
+			} else {
+				alert('This is the first page.')
+			}
+
+		},
+		nextPage: function () {
+			if (this.page.maxPage > this.page.presentPage) {
+				this.page.presentPage = this.page.presentPage + 1
+				this.getData()
+			} else {
+				alert('You have reached the last page.')
+			}
 		}
 	},
 	mounted: function () {
@@ -112,7 +150,8 @@ li {
 
 .stu-content {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 60px;
 	color: #088480;
 }

@@ -10,7 +10,11 @@
 		<div v-if=" presentTab == 'list' " class="stu-content">
 			<ul class="example">
 				<teacher-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></teacher-item>
-				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + 1" v-bind:item="item" v-bind:key="item.id" :display="display"></teacher-item>
+				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + (page.presentPage - 1) * 10 + 1" v-bind:item="item" v-bind:key="item.id" :display="display"></teacher-item>
+			</ul>
+			<ul class="pager">
+				<li><a href="#" v-on:click="formerPage()">Previous</a></li>
+				<li><a href="#" v-on:click="nextPage()">Next</a></li>
 			</ul>
 		</div>
 		<div v-else-if=" presentTab == 'submit' " class="stu-content">
@@ -48,7 +52,11 @@ export default {
 			alter: {
 				tutorId: ''
 			},
-			state: ''
+			state: '',
+			page: {
+				presentPage: 1,
+				maxPage: 0
+			}
 		}
 	},
 	computed: {
@@ -64,7 +72,20 @@ export default {
 			}
 		}
 	},
-	methods: {
+	methods: { 
+		getData: function () {
+			let opt = {
+				page: this.page.presentPage
+			}
+			api.teacherData(opt).then(({
+				data
+			}) => {
+				if (data.success) {
+					this.dataItems = data.result
+					this.page.maxPage = data.maxPage
+				}
+			})
+		},
 		alterTab: function (routes) {
 			this.presentTab = routes
 		},
@@ -87,16 +108,28 @@ export default {
 			} else {
 				alert('You already choosed your tutor.')
 			}
+		},
+		formerPage: function () {
+			if (this.page.presentPage > 1) {
+				this.page.presentPage = this.page.presentPage - 1
+				this.getData()
+			} else {
+				alert('This is the first page.')
+			}
+
+		},
+		nextPage: function () {
+			if (this.page.maxPage > this.page.presentPage) {
+				this.page.presentPage = this.page.presentPage + 1
+				this.getData()
+			} else {
+				alert('You have reached the last page.')
+			}
 		}
 	},
-	mounted: function () {
-		api.teacherData().then(({
-			data
-		}) => {
-			if (data.success) {
-				this.dataItems = data.result
-			}
-		})
+	created: function () {
+		//this.getPages()
+		this.getData()
 	}
 }
 </script>
@@ -136,7 +169,8 @@ li {
 
 .stu-content {
 	display: flex;
-	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	margin-top: 60px;
 	color: #088480;
 }

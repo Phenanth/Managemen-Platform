@@ -12,11 +12,21 @@
 
 		<div class="sidebar">
 			<div class="sidebar-tabs" v-if="isStudent">
-				<router-link class="sidebar-tab" v-bind:class="{ active : page1 }" v-bind:to="studentProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active : page2 }"  v-bind:to="studentViewOfTeacherPath">Teacher View</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : page1 }" v-bind:to="studentProfilePath">
+				<div class="side-item">
+				<embed height="20" width="28" src="../../static/svg/personal-center.svg"/> 
+				Profile
+				</div>
+				</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : page2 }"  v-bind:to="studentViewOfTeacherPath">Teachers</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
-				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">Profile</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">
+				<div class="row side-item">
+				<embed class="no-pad-mgn col-md-3 col-md-offset-1" height="20" width="28" src="../../static/svg/personal-center.svg"/> 
+				<span class="no-pad-mgn col-md-6 text-left">Profile</span>
+				</div>
+				</router-link>
 				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">Student List</router-link>
 				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">Teacher List</router-link>
 			</div>
@@ -185,6 +195,13 @@ b {
 	background-color: #97CACA;
 }
 
+.side-item {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
 .sidebar-tab {
 	display: list-item;
 	height: 50px;
@@ -196,6 +213,11 @@ b {
 
 .active {
 	background-color: #0EA8A3;
+}
+
+.no-pad-mgn {
+	padding: 0px;
+	margin: 0px;
 }
 
 </style>

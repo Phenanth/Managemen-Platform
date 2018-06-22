@@ -1,46 +1,53 @@
 <!DOCTYPE html>
 <template>
 	<div class="login container-fluid">
+
 		<div class="hd navbar-header row">
-			<i class="col-md-offset-3 col-md-4 fa fa-angle-right fa-3x"></i>
-			<!-- <span class="col-md-offset-3 col-md-4">Icon</span> -->
-			<span class="col-md-5">Login</span>
+			<embed class="col-md-1 col-md-offset-2" height="25" width="35" src="../../static/svg/account-filling.svg"/>
+			<span class="header col-md-2">LOG IN</span>
 		</div>
-		<hr>
 		<div class="cnt">
 			<form>
 				<div class="input form-group">
-					<label for="input-id">ID</label>
+					<label for="input-id">
+						<embed class="left-float" height="18" width="35" src="../../static/svg/account.svg"/>
+					</label>
 					<input type="text" class="form-control" placeholder="ID" v-model="username">
 				</div>
 				<div class="input form-group">
-					<label for="input-pw">Password</label>
+					<label for="input-pw">
+						<embed class="left-float" height="18" width="35" src="../../static/svg/password.svg"/>
+					</label>
 					<input type="password" class="form-control" placeholder="Password" v-model="password">
 				</div>
 				<div class="radio">
-					<label for="student">
-						<input type="radio" value="student" id="student" v-model="role">
+					<label for="student" class="demo-label">
+						<input type="radio" value="student" id="student" v-model="role" class="demo-radio" checked="true">
+						<span class="demo-radioInput"></span>
 						Student
 					</label>
-					<label for="Teacher">
-						<input type="radio" value="teacher" id="teacher" v-model="role">
+					<label for="teacher" class="demo-label">
+						<input type="radio" value="teacher" id="teacher" v-model="role" class="demo-radio">
+						<span class="demo-radioInput"></span>
 						Teacher
 					</label>
-					<label for="Admin">
-						<input type="radio" value="admin" id="admin" v-model="role">
+					<label for="admin" class="demo-label">
+						<input type="radio" value="admin" id="admin" v-model="role" class="demo-radio">
+						<span class="demo-radioInput"></span>
 						Admin
 					</label>
 				</div>
 				<div class="checkbox">
 					<label>
-						<input type="checkbox" value="true" v-model="willStore">Remember me in 7 days.
+						<input type="checkbox" value="true" v-model="willStore" class="demo-radio demo-radioInput">
+						<span class="demo-checkbox demo-radioInput"></span>Remember me in 7 days.
 					</label>
 				</div>
-				<button type="button" class="btn-login btn btn-primary" v-on:click="login()">Login</button>
+				<button type="button" class=" btn btn-login" v-on:click="login()">Login</button>
 			</form>
 		</div>
-		<hr>
 		<div class="ft">C.F.: Charlotte</div>
+		
 	</div>
 </template>
 <script>
@@ -91,24 +98,36 @@ export default {
 <style>
 
 html, body {
+	min-width: 992px;
 	height: 100%;
 	margin: 0px;
 	border: 3px solid #0EA8A3; /* Manjaro green */
 	background-color: #F5FFFF;
 }
 
+input[type="radio"], input[type="checkbox"] {
+	display: none;
+}
+
 .login {
+	display: flex;
+	flex-direction: column;
 	width: 70%;
+	color: #505050;
 	height: 100%;
 }
-.hd {
+
+.header {
+	font-size: 22px;
 }
+
 .cnt {
 	padding: 40px;
 	display: flex;
 	justify-content: center;
 	height: 500px;
 }
+
 .input {
 	display: flex;
 	flex-direction: column;
@@ -116,13 +135,71 @@ html, body {
 	width: 300px;
 	margin: 30px;
 }
-.btn-login {
-	width: 300px;
+
+.left-float {
+	float: left;
 }
+
+.btn-login {
+	margin-top: 30px;
+	width: 300px;
+	color: #E5F5F5;
+	background-color: #0EA8A3;
+}
+
+.btn-login:hover {
+	color: white;
+	background-color: #0c8a86;
+}
+
+.btn-login:focus {
+	color: #E5F5F5;
+	background-color: #0EA8A3;
+}
+
 .ft {
 	display: flex;
 	color: #2c3e50;
 	justify-content: flex-end;
 	bottom: 0px;
 }
+
+/* Input styles */
+
+.radio {
+	display:inline-block
+}
+
+.demo-label {
+	margin:10px 10px 0 0;
+	display:inline-block;
+}
+
+.demo-radioInput {
+	background-color: #fff;
+	border: 1px solid #A0A0A0;
+	border-radius: 100%;
+	display: inline-block;
+	height: 16px;
+	margin-right: 10px;
+	margin-top: -1px;
+	vertical-align: middle;
+	width: 16px;
+	line-height: 1;
+}
+
+.demo-radio:checked + .demo-radioInput:after {
+	background-color: #0EA8A3;
+	border-radius: 100%;
+	content: "";
+	display: inline-block;
+	height: 12px;
+	margin: 1px;
+	width: 12px;
+}
+
+.demo-checkbox.demo-radioInput,.demo-radio:checked + .demo-checkbox.demo-radioInput:after {
+	border-radius: 0;
+}
+
 </style>

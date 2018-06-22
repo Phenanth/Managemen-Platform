@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <template>
 	<div class="admin">
-		<!-- <h1>Admin Profile</h1> -->
+
 		<ul class="nav nav-tabs head-tabs">
 			 <li role="presentation" v-bind:class="{ activeTab: isActive == 'profile' }" v-on:click="alterTab('profile')"><a>Profile</a></li>
 			 <li role="presentation" v-bind:class="{ activeTab: isActive == 'safety' }" v-on:click="alterTab('safety')""><a>Safety</a></li>
@@ -46,6 +46,7 @@
 				<button class="btn btn-primary btn-doChange" v-on:click="doChange()">Submit</button>
 			</form>
 		</div>
+		
 	</div>
 </template>
 <script>
@@ -126,70 +127,9 @@ export default {
 }
 </script>
 <style>
-.admin {
-	min-width: 992px;
-}
-
-.nav-tabs {
-	border-bottom: 1px solid #78bfba;
-}
-.nav > li > a {
-	padding-left: 35px;
-	padding-right: 32px;
-}
-.nav > li > a:hover {
-	background-color: #3fb1b1;
-}
-.nav > li {
-	margin-left: 10px;
-	margin-right: 10px;
-}
-.nav > li:hover {
-	border-bottom: 2px solid #0EA8A3;
-}
-.head-tabs {
-	display: flex;
-	justify-content: center;
-}
-.activeTab {
-	border-bottom: 2px solid #0EA8A3;
-}
-
-.admin-content {
-	display: flex;
-	justify-content: center;
-	margin-top: 60px;
-	color: #088480;
-}
-
-.userinfo {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	padding-left: 0px;
-}
 
 .info-section {
 	width: 200px;
-}
-
-.info {
-	list-style: none;
-	margin-bottom: 20px;
-	display: inline-block;
-	width: 100px;
-	text-align: right;
-}
-
-.userdata {
-	text-align: left;
-	font-size: 20px;
-	color: #505050;
-	line-height: 20px;
-}
-
-.btn-doChange  {
-	margin-top: 30px;
 }
 
 </style>

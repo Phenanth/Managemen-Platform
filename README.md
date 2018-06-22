@@ -265,3 +265,7 @@ I exactlly want the page to refresh after the checkStudent operation, but I have
 - CSS stuff
 
 Not finished, like the log out button and so on.
+
+#### Later
+
+Still worked on the css stuff, argh.

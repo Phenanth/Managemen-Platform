@@ -9,39 +9,56 @@
 				<span><b>USER</b>:{{ username }}</span>
 			</div>
 			<div class="btn btn-logout" v-on:click="logout()">
-			<div v-on:click="logout()">
-			<embed height="25" width="35" src="../../static/svg/wrong.svg"/>
-			</div>
+				<div class="fade-enter-active">
+					<embed height="25" width="35" src="../../static/svg/wrong.svg"/>
+				</div>
 			</div>
 		</nav>
 
+		<!-- Side navbar -->
 		<div class="sidebar">
 			<div class="sidebar-tabs" v-if="isStudent">
 				<router-link class="sidebar-tab" v-bind:class="{ active : page1 }" v-bind:to="studentProfilePath">
-				<div class="side-item"><!-- 
-				<embed height="20" width="28" src="../../static/svg/personal-center.svg"/>  -->
-				Profile
-				</div>
+					<span>
+						Profile
+					</span>
 				</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active : page2 }"  v-bind:to="studentViewOfTeacherPath">Teachers</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active : page2 }"  v-bind:to="studentViewOfTeacherPath">
+					<span>
+						Teachers
+					</span>
+				</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
 				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">
-				<div class="row side-item"><!-- 
-				<embed class="no-pad-mgn col-md-3 col-md-offset-1" height="20" width="28" src="../../static/svg/personal-center.svg"/>  -->
-				<!-- <span class="no-pad-mgn col-md-6 text-left">Profile</span> -->
-				<span>Profile</span>
+				<div class="row side-item">
+					<span>Profile</span>
 				</div>
 				</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">Student List</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">Teacher List</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">
+					<span>Student List</span>
+				</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page5}" v-bind:to="adminTchListPath">
+					<span>Teacher List</span>
+				</router-link>
 			</div>
 			<div class="sidebar-tabs" v-else-if="isTeacher">
-				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="teacherProfilePath">Profile</router-link>
-				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">My Students</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="teacherProfilePath">
+					<span>
+						Profile
+					</span>
+				</router-link>
+				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">
+					<span>
+						My Students
+					</span>
+				</router-link>
 			</div>
 		</div>
+
+		<!-- Sections -->
 		<router-view></router-view>
+
 	</div>
 </template>
 <script>
@@ -58,7 +75,8 @@ export default {
 			adminStuListPath: '/admin/' + this.$route.params.id + '/stu-list',
 			adminTchListPath: '/admin/' + this.$route.params.id + '/tch-list',
 			teacherProfilePath: '/teacher/' + this.$route.params.id + '/profile',
-			teacherStuHandlePath: '/teacher/' + this.$route.params.id + '/stu-handle'
+			teacherStuHandlePath: '/teacher/' + this.$route.params.id + '/stu-handle',
+			hover: false
 		}
 	},
 	// Will be optimized to use localStorage in the future.
@@ -119,12 +137,19 @@ export default {
 			} else {
 				return false
 			}
+		},
+		hovering: function () {
+			return this.hover
 		}
 	},
 	methods: {
 		logout: function () {
 			store.dispatch('logout')
 			router.go(0)
+		},
+		isHover: function () {
+			this.hover = !this.hover
+			console.log(this.hover)
 		}
 	},
 	mounted: function () {
@@ -134,22 +159,17 @@ export default {
 </script>
 <style>
 
+/* General */
+
 nav {
 	background-color: #505050; /* Manjaro gray */
 	color: #E5F5F5; /* Light Manjaro green */
 	margin-bottom: 0px;
-	/*padding-left: 20px;*/
-	/*padding-right: 20px;*/
 }
 
 html, body {
-	height: 100%;
-	min-width: 992px;
-	margin: 0px;
-	border: 3px solid #0EA8A3; /* Manjaro green */
 	border-bottom: transparent;
 	border-right: transparent;
-	background-color: #F5FFFF;
 }
 
 a:hover {
@@ -166,9 +186,7 @@ b {
 	font-size: 34px;
 }
 
-.user {
-	/*font-weight: bold;*/
-}
+/* Navbar */
 
 .brand-box {
 	float: left;
@@ -197,7 +215,38 @@ b {
 .btn-logout:hover {
 	color: white;
 	cursor: pointer;
-	background-color: #20aba6;
+	background-color: #0c8a86;
+}
+
+.btn-logout:hover embed {
+	display: none;
+}
+
+.btn-logout:hover div:after {
+	content: "Log Out";
+}
+
+/* Sidebar */
+
+li {
+	list-style: none;
+}
+.nav-tabs {
+	border-bottom: 1px solid #78bfba;
+}
+.nav > li > a {
+	padding-left: 35px;
+	padding-right: 32px;
+}
+.nav > li > a:hover {
+	background-color: #3fb1b1;
+}
+.nav > li {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.nav > li:hover {
+	border-bottom: 2px solid #0EA8A3;
 }
 
 .sidebar {
@@ -233,6 +282,158 @@ b {
 .no-pad-mgn {
 	padding: 0px;
 	margin: 0px;
+}
+
+/* Start of the sections. */
+
+.admin, .student, .teacher {
+	min-width: 992px;
+}
+
+.head-tabs {
+	display: flex;
+	justify-content: center;
+}
+
+.activeTab {
+	border-bottom: 2px solid #0EA8A3;
+}
+
+.tch-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 60px;
+	color: #088480;
+}
+
+.stu-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 60px;
+	color: #088480;
+}
+
+.admin-content {
+	display: flex;
+	justify-content: center;
+	margin-top: 60px;
+	color: #088480;
+}
+
+.btn-doChange {
+	margin-top: 30px;
+	border: 1px solid #0EA8A3;
+	color: #E5F5F5;
+	background-color: #0EA8A3;
+}
+.btn-doChange:hover {
+	color: white;
+	border: 1px solid #0c8a86;
+	background-color: #0c8a86;
+}
+.btn-doChange:focus {
+	color: #E5F5F5;
+	background-color: #0EA8A3;
+}
+
+/* Lists*/
+
+.userinfo {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-left: 0px;
+}
+
+.info {
+	list-style: none;
+	margin-bottom: 20px;
+	display: inline-block;
+	width: 100px;
+	text-align: right;
+}
+
+.userdata {
+	text-align: left;
+	font-size: 20px;
+	color: #505050;
+	line-height: 20px;
+}
+
+.item {
+	display: flex;
+	color: #505050;
+	border: 2px solid #E5F5F5;
+	margin: 2px;
+}
+
+.titleItem {
+	color: white;
+	background-color: #0EA8A3;
+	border: 1px solid #0EA8A3;
+}
+
+.listItem {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.item-id, .item-index, .item-name, .item-sex, .item-position, .item-direction, .item-phone, .item-major, .item-classId, .item-phone, .item-state, .item-tutorId {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 3px;
+	height: 25px;
+}
+
+.item-index {
+	width: 50px;
+}
+
+.item-id {
+	width: 100px;
+}
+
+.item-name {
+	width: 70px;
+}
+
+.item-sex {
+	width: 30px;
+}
+
+.item-position {
+	width: 50px;
+}
+
+.item-direction {
+	width: 70px;
+}
+
+.item-phone {
+	width: 140px;
+}
+
+.item-major {
+	width: 70px;
+}
+
+.item-classId {
+	width: 140px;
+}
+
+.item-phone {
+	width: 140px;
+}
+
+.item-state {
+	width: 50px;
+}
+
+.item-tutorId {
+	width: 100px;
 }
 
 </style>

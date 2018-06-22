@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 
 Vue.component('teacher-item', {
 	props: ['index', 'item', 'display'],
-	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name}}</div><div class="item-sex">{{ item.sex }}</div><div class="item-position">{{ item.position }}</div><div class="item-direction">{{ item.direction }}</div><div class="item-phone">{{ item.phone }}</div><button class="btn btn-default" v-if="display" v-on:click="subTutor(item.id)">Sub</button></div>',
+	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name}}</div><div class="item-sex">{{ item.sex }}</div><div class="item-position">{{ item.position }}</div><div class="item-direction">{{ item.direction }}</div><div class="item-phone">{{ item.phone }}</div><button class="btn btn-default" style="margin-right:3px;" v-if="display" v-on:click="subTutor(item.id)">Sub</button></div>',
 	methods: {
 		subTutor: function (tutorId) {
 			let state = JSON.parse(store.getters.showTutorState).state
@@ -24,6 +24,7 @@ Vue.component('teacher-item', {
 				}) => {
 					if (data.success) {
 						alert('You have choosed ' + tutorId + ' as your tutor.')
+						router.go(0)
 					} else {
 						alert(data.message)
 					}
@@ -37,7 +38,7 @@ Vue.component('teacher-item', {
 
 Vue.component('student-item', {
 	props: ['index', 'item', 'display'],
-	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name }}</div><div class="item-sex">{{ item.sex }}</div><div class="item-major">{{ item.major }}</div><div class="item-classId">{{ item.classId }}</div><div class="item-phone">{{ item.phone }}</div><div class="item-state">{{ item.state }}</div><div class="item-tutorId">{{ item.tutorId }}</div><button class="btn btn-default" v-if="display" v-on:click="checkStudent(item.id)">Check</button></div>',
+	template: '<div class="item"><div class="item-index">{{ index }}</div><div class="item-id">{{ item.id }}</div><div class="item-name">{{ item.name }}</div><div class="item-sex">{{ item.sex }}</div><div class="item-major">{{ item.major }}</div><div class="item-classId">{{ item.classId }}</div><div class="item-phone">{{ item.phone }}</div><div class="item-state">{{ item.state }}</div><div class="item-tutorId">{{ item.tutorId }}</div><button class="btn btn-default" style="margin-right:3px;"v-if="display" v-on:click="checkStudent(item.id)">Check</button></div>',
 	methods: {
 		checkStudent: function (id) {
 			let opt = {

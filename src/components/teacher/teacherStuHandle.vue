@@ -165,6 +165,10 @@ li {
 	color: #088480;
 }
 
+.example {
+	height: 410px;
+}
+
 .userinfo {
 	display: flex;
 	flex-direction: column;
@@ -191,10 +195,17 @@ li {
 	margin-top: 30px;
 }
 
-.titleItem {
-	background-color: #0EA8A3;
+.item {
 	display: flex;
-	justify-content: flex-start;
+	color: #505050;
+	border: 2px solid #E5F5F5;
+	margin: 2px;
+}
+
+.titleItem {
+	color: white;
+	background-color: #0EA8A3;
+	border: 1px solid #0EA8A3;
 }
 
 .listItem {
@@ -202,15 +213,12 @@ li {
 	justify-content: flex-start;
 }
 
-.item {
-	color: #505050;
-	border: 2px solid #E5F5F5;
-	margin: 2px;
-}
-
 .item-id, .item-index, .item-name, .item-sex, .item-major, .item-classId, .item-phone, .item-state, .item-tutorId {
-	display: inline-block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin: 3px;
+	height: 25px;
 }
 
 .item-index {

@@ -257,3 +257,11 @@ I exactlly want the page to refresh after the checkStudent operation, but I have
 - Added paging of the lists.
 
 - Added delete logic (admin and teacher)
+
+### 18-06-22
+
+#### Worked On
+
+- CSS stuff
+
+Not finished, like the log out button and so on.

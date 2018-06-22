@@ -7,7 +7,7 @@
 			 <li role="presentation" v-bind:class="{ activeTab: isActive == 'submit' }" v-on:click="alterTab('submit')""><a>Submit</a></li>
 		</ul>
 
-		<div v-if=" presentTab == 'list' " class="stu-content">
+		<div v-if=" presentTab == 'list' " class="tch-content">
 			<ul class="example">
 				<teacher-item class="titleItem" v-bind:index="'Index'" v-bind:item="titleItem" :display="false"></teacher-item>
 				<teacher-item v-for="(item, index) in dataItems" v-bind:index="index + (page.presentPage - 1) * 10 + 1" v-bind:item="item" v-bind:key="item.id" :display="display"></teacher-item>
@@ -17,7 +17,7 @@
 				<li><a href="#" v-on:click="nextPage()">Next</a></li>
 			</ul>
 		</div>
-		<div v-else-if=" presentTab == 'submit' " class="stu-content">
+		<div v-else-if=" presentTab == 'submit' " class="tch-content">
 			<form class="form-horizontal">
 				<div class="form-group">
 					<label class="col-md-5 control-label" name="oldPassword">Tutor Id:</label>
@@ -167,12 +167,16 @@ li {
 	border-bottom: 2px solid #0EA8A3;
 }
 
-.stu-content {
+.tch-content {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	margin-top: 60px;
 	color: #088480;
+}
+
+.example {
+	height: 440px;
 }
 
 .userinfo {
@@ -201,21 +205,30 @@ li {
 	margin-top: 30px;
 }
 
-.titleItem {
-	background-color: #0EA8A3;
-	display: flex;
-	justify-content: flex-start;
-}
-
 .item {
+	display: flex;
 	color: #505050;
 	border: 2px solid #E5F5F5;
 	margin: 2px;
 }
 
+.titleItem {
+	color: white;
+	background-color: #0EA8A3;
+	border: 1px solid #0EA8A3;
+}
+
+.listItem {
+	display: flex;
+	justify-content: flex-start;
+}
+
 .item-id, .item-index, .item-name, .item-sex, .item-position, .item-direction, .item-phone {
-	display: inline-block;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin: 3px;
+	height: 25px;
 }
 
 .item-index {

@@ -4,17 +4,22 @@
 
 		<!-- Navbar -->
 		<nav class="navbar navbar-fixed-top">
-			<div class="brand-box">
+			<div class="brand-box">  
+				<embed height="25" width="35" src="../../static/svg/bussiness-card.svg"/> 
 				<span><b>USER</b>:{{ username }}</span>
 			</div>
-			<button class="btn-logout" v-on:click="logout()">Log Out</button>
+			<div class="btn btn-logout" v-on:click="logout()">
+			<div v-on:click="logout()">
+			<embed height="25" width="35" src="../../static/svg/wrong.svg"/>
+			</div>
+			</div>
 		</nav>
 
 		<div class="sidebar">
 			<div class="sidebar-tabs" v-if="isStudent">
 				<router-link class="sidebar-tab" v-bind:class="{ active : page1 }" v-bind:to="studentProfilePath">
-				<div class="side-item">
-				<embed height="20" width="28" src="../../static/svg/personal-center.svg"/> 
+				<div class="side-item"><!-- 
+				<embed height="20" width="28" src="../../static/svg/personal-center.svg"/>  -->
 				Profile
 				</div>
 				</router-link>
@@ -22,9 +27,10 @@
 			</div>
 			<div class="sidebar-tabs" v-else-if="isAdmin">
 				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="adminProfilePath">
-				<div class="row side-item">
-				<embed class="no-pad-mgn col-md-3 col-md-offset-1" height="20" width="28" src="../../static/svg/personal-center.svg"/> 
-				<span class="no-pad-mgn col-md-6 text-left">Profile</span>
+				<div class="row side-item"><!-- 
+				<embed class="no-pad-mgn col-md-3 col-md-offset-1" height="20" width="28" src="../../static/svg/personal-center.svg"/>  -->
+				<!-- <span class="no-pad-mgn col-md-6 text-left">Profile</span> -->
+				<span>Profile</span>
 				</div>
 				</router-link>
 				<router-link class="sidebar-tab" v-bind:class="{ active: page4}" v-bind:to="adminStuListPath">Student List</router-link>
@@ -34,7 +40,6 @@
 				<router-link class="sidebar-tab" v-bind:class="{ active: page1}" v-bind:to="teacherProfilePath">Profile</router-link>
 				<router-link class="sidebar-tab" v-bind:class="{ active: page3}" v-bind:to="teacherStuHandlePath">My Students</router-link>
 			</div>
-			<div v-else></div>
 		</div>
 		<router-view></router-view>
 	</div>
@@ -162,7 +167,7 @@ b {
 }
 
 .user {
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .brand-box {
@@ -176,13 +181,23 @@ b {
 }
 
 .btn-logout {
+	display: flex;
+	width: 60px;
+	align-items: center;
+	justify-content: center;
 	float: right;
-	height: 50px;
-	line-height: 50px;
-	font-size: 18px;
+	height: 46px;
+	margin-top: 2px;
+	margin-right: 2px;
 	padding-left: 20px;
 	padding-right: 20px;
 	background-color: #0EA8A3;
+}
+
+.btn-logout:hover {
+	color: white;
+	cursor: pointer;
+	background-color: #20aba6;
 }
 
 .sidebar {

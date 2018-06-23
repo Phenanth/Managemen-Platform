@@ -59,6 +59,10 @@
 		<!-- Sections -->
 		<router-view></router-view>
 
+		<div class="ft" >
+			<embed class=" col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/img/github5.png"/>
+		</div> 
+
 	</div>
 </template>
 <script>
@@ -288,6 +292,7 @@ li {
 
 .admin, .student, .teacher {
 	min-width: 992px;
+	min-height: 540px;
 }
 
 .head-tabs {
@@ -434,6 +439,13 @@ li {
 
 .item-tutorId {
 	width: 100px;
+}
+
+.user > .ft {
+	position: absolute;
+	float: right;
+	left: 96%;
+	bottom: 3%;
 }
 
 </style>

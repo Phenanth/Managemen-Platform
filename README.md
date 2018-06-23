@@ -4,6 +4,103 @@
 
 ## Structure of The Project
 
+### File Structure
+```
+├── .babelrc
+├── build
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   ├── webpack.prod.conf.js
+│   └── webpack.test.conf.js
+├── config
+│   ├── dev.env.js
+│   ├── index.js
+│   ├── prod.env.js
+│   └── test.env.js
+├── .editorconfig
+├── .eslintignore
+├── .eslintrc.js
+├── .git
+├── node_modules
+├── package.json
+├── package-lock.json
+├── .postcssrc.js
+├── server
+│   ├── db
+│   │   ├── connect.js
+│   │   └── dbHelper.js
+│   ├── middleware
+│   │   ├── checkToken.js
+│   │   └── createToken.js
+│   ├── routes.js
+│   ├── server.js
+│   └── state
+│       └── stateHelper.js
+├── src
+│   ├── api.js
+│   ├── App.vue
+│   ├── assets
+│   │   └── logo.png
+│   ├── components
+│   │   ├── admin
+│   │   │   ├── adminProfile.vue
+│   │   │   ├── adminStuList.vue
+│   │   │   ├── adminTchList.vue
+│   │   │   └── admin.vue
+│   │   ├── login
+│   │   │   └── login.vue
+│   │   ├── student
+│   │   │   ├── studentProfile.vue
+│   │   │   ├── studentViewOfTeacher.vue
+│   │   │   └── student.vue
+│   │   ├── teacher
+│   │   │   ├── teacherProfile.vue
+│   │   │   ├── teacherStuHandle.vue
+│   │   │   └── teacher.vue
+│   │   └── user.vue
+│   ├── main.js
+│   ├── router
+│   │   └── index.js
+│   └── store
+│       ├── index.js
+│       └── modules
+│           ├── state.js
+│           └── token.js
+├── static
+│   ├── .gitkeep
+│   ├── img
+│   │    └── github5.img
+│   └── svg
+│       ├── account-filling.svg
+│       ├── account.svg
+│       ├── bussiness-card.svg
+│       ├── github5.svg
+│       ├── password.svg
+│       ├── personal-center.svg
+│       └── wrong.svg
+├── test
+│   ├── e2e
+│   │   ├── custom-assertions
+│   │   │   └── elementCount.js
+│   │   ├── nightwatch.conf.js
+│   │   ├── runner.js
+│   │   └── specs
+│   │       └── test.js
+│   └── unit
+│       ├── .eslintrc
+│       ├── index.js
+│       ├── karma.conf.js
+│       └── specs
+│           └── HelloWorld.spec.js
+├── README.md
+```
+### Logic Structure
+```
 index.html
 	login.html
 	(user.html)
@@ -21,6 +118,7 @@ index.html
 			tch-Profile.html
 			tch-listOfMyStu.html
 			(The second process of accepting the submit of changing the instructor of a student. (May be the last process since the admin role in this logic would not be necessary.))
+```
 
 ## Router Example
 

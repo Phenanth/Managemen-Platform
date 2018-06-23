@@ -4,7 +4,7 @@
 
 		<div class="hd navbar-header row">
 			<embed class="col-md-1 col-md-offset-2" height="25" width="35" src="../../static/svg/account-filling.svg"/>
-			<span class="header col-md-2">LOG IN</span>
+			<span class="header col-md-2">LOGIN</span>
 		</div>
 		<div class="cnt">
 			<form>
@@ -46,7 +46,9 @@
 				<button type="button" class=" btn btn-login" v-on:click="login()">Login</button>
 			</form>
 		</div>
-		<div class="ft">C.F.: Charlotte</div>
+		<div class="ft" >
+			<embed class=" col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/img/github5.png"/>
+		</div>
 		
 	</div>
 </template>
@@ -200,6 +202,20 @@ input[type="radio"], input[type="checkbox"] {
 
 .demo-checkbox.demo-radioInput,.demo-radio:checked + .demo-checkbox.demo-radioInput:after {
 	border-radius: 0;
+}
+
+/* Others */
+.git {
+	color: #0EA8A3;
+	font-size: 16px;
+	line-height: 36px;
+	text-decoration: none;
+}
+
+.git:hover {
+	color: #0c8a86;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 </style>

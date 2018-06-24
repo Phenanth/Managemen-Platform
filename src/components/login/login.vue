@@ -3,8 +3,13 @@
 	<div class="login container-fluid">
 
 		<div class="hd navbar-header row">
-			<embed class="col-md-1 col-md-offset-2" height="25" width="35" src="../../static/svg/account-filling.svg"/>
+			<embed class="col-md-2" height="25" width="35" src="../../static/svg/account-filling.svg"/>
 			<span class="header col-md-2">LOGIN</span>
+			<div class="btn btn-goBack" v-on:click="goBack()">
+				<div class="fade-enter-active">
+					<embed height="25" width="35" src="../static/svg/back.svg"/>
+				</div>
+			</div>
 		</div>
 		<div class="cnt">
 			<form>
@@ -22,7 +27,7 @@
 				</div>
 				<div class="radio">
 					<label for="student" class="demo-label">
-						<input type="radio" value="student" id="student" v-model="role" class="demo-radio" checked="true">
+						<input type="radio" value="student" id="student" v-model="role" class="demo-radio">
 						<span class="demo-radioInput"></span>
 						Student
 					</label>
@@ -55,6 +60,7 @@
 <script>
 import api from '../../api.js'
 import store from '../../store/index.js'
+import router from '../../router'
 export default {
 	name: 'Login',
 	data: function () {
@@ -93,6 +99,9 @@ export default {
 			} else {
 				alert('Fill the blanks please.')
 			}
+		},
+		goBack: function () {
+			router.push('/')
 		}
 	}
 }
@@ -101,10 +110,7 @@ export default {
 
 html, body {
 	min-width: 992px;
-	height: 100%;
 	margin: 0px;
-	border: 3px solid #0EA8A3; /* Manjaro green */
-	background-color: #F5FFFF;
 }
 
 input[type="radio"], input[type="checkbox"] {
@@ -159,6 +165,34 @@ input[type="radio"], input[type="checkbox"] {
 	background-color: #0EA8A3;
 }
 
+.btn-goBack {
+	display: flex;
+	width: 60px;
+	float: right;
+	align-items: center;
+	justify-content: center;
+	height: 30px;
+	margin-top: 2px;
+	margin-right: 2px;
+	padding-left: 20px;
+	padding-right: 20px;
+	background-color: #0EA8A3;
+}
+
+.btn-goBack:hover {
+	color: white;
+	cursor: pointer;
+	background-color: #0c8a86;
+}
+
+.btn-goBack:hover embed {
+	display: none;
+}
+
+.btn-goBack:hover div:after {
+	content: "Go Back";
+}
+
 .ft {
 	display: flex;
 	color: #2c3e50;
@@ -205,6 +239,14 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 /* Others */
+
+.login > .ft {
+	position: fixed;
+	float: right;
+	left: 80%;
+	bottom: 3%;
+}
+
 .git {
 	color: #0EA8A3;
 	font-size: 16px;

@@ -2,19 +2,20 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/index.js'
 
+import Home from '@/components/home'
 import Login from '@/components/login/login'
 import User from '@/components/user'
 
-import Student from '@/components/student/student'
+//import Student from '@/components/student/student'
 import StudentProfile from '@/components/student/studentProfile'
 import StudentViewOfTeacher from '@/components/student/studentViewOfTeacher'
 
-import Admin from '@/components/admin/admin'
+//import Admin from '@/components/admin/admin'
 import AdminProfile from '@/components/admin/adminProfile'
 import AdminStuList from '@/components/admin/adminStuList'
 import AdminTchList from '@/components/admin/adminTchList'
 
-import Teacher from '@/components/teacher/teacher'
+//import Teacher from '@/components/teacher/teacher'
 import TeacherProfile from '@/components/teacher/teacherProfile'
 import TeacherStuHandle from '@/components/teacher/teacherStuHandle'
 
@@ -25,7 +26,8 @@ const router =  new Router({
 		{
 		  path: '/',
 		  name: 'home',
-		  redirect: '/login' // Will be removed if home page was designed.
+		  component: Home
+		  //redirect: '/login' // Will be removed if home page was designed.
 		},
 		{
 			path: '/login',

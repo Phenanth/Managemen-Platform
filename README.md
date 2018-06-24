@@ -2,9 +2,19 @@
 
 > A student and instructor management platform.
 
+## Features
+
+- CSS: Bootstrap, iconfont
+- Router: vue-router
+- State Management: vuex & localStorage
+- Front & Back: Axios 
+- Back: NodeJS
+- Dev Tool: VueJS.
+
 ## Structure of The Project
 
 ### File Structure
+
 ```
 ├── .babelrc
 ├── build
@@ -50,18 +60,16 @@
 │   │   ├── admin
 │   │   │   ├── adminProfile.vue
 │   │   │   ├── adminStuList.vue
-│   │   │   ├── adminTchList.vue
-│   │   │   └── admin.vue
+│   │   │   └── adminTchList.vue
 │   │   ├── login
 │   │   │   └── login.vue
 │   │   ├── student
 │   │   │   ├── studentProfile.vue
-│   │   │   ├── studentViewOfTeacher.vue
-│   │   │   └── student.vue
+│   │   │   └── studentViewOfTeacher.vue
 │   │   ├── teacher
 │   │   │   ├── teacherProfile.vue
-│   │   │   ├── teacherStuHandle.vue
-│   │   │   └── teacher.vue
+│   │   │   └── teacherStuHandle.vue
+│   │   ├── home.vue
 │   │   └── user.vue
 │   ├── main.js
 │   ├── router
@@ -99,6 +107,7 @@
 │           └── HelloWorld.spec.js
 ├── README.md
 ```
+
 ### Logic Structure
 ```
 index.html
@@ -122,35 +131,38 @@ index.html
 
 ## Router Example
 
+```
 index.html
 	student?id=xxxxx/stu-list.html
 	admin?id=xxxxx/adm-info.html
 	teacher?id=xxxxx/tch-info.html
+```
 
 ## Logic
+
+### Data Operations
+
+Get Data: Interacts with database in `dbHelper.js` and using VueJS's component to render the paged data.
+
+Change Data: Interacts with database in `dbHelper.js` and refresh the page.
 
 ### States
 
 - Not Checked
 
-Student don't have any instructor at the moment and their instructor can be altered,
-
-- Not Formed
-
-The submition of changing an instructor was accepted by the instructor but still need the admin to judge.
+Student don't have any instructor at the moment and their instructor can be altered.
 
 - Checked
 
-Student choosed their instructor and can change it.
+Instructor has accepted the submition and students can't change it.
 
 ### Changing instructor
 
 In the `stu-info.html`, student can go ot `subChange.html` to submit their new instructor.
 
 1. Student submit change through `subChange.html` (State: not checked)
-2. Instructor accept / reject the submition through `tch-listOfMyStu.html` (State: not formed)
-3. Administrator accept / reject the submition through `adm-listOfStu.html` (State: checked)
-4. Change submition successed.
+2. Instructor accept / reject the submition through `tch-listOfMyStu.html` (State: checked)
+3. Change submition successed.
 
 ### Others
 
@@ -367,3 +379,7 @@ Not finished, like the log out button and so on.
 #### Later
 
 Still worked on the css stuff, argh.
+
+### 18-06-24
+
+- index.vue

@@ -149,7 +149,8 @@ export default {
 	methods: {
 		logout: function () {
 			store.dispatch('logout')
-			router.go(0)
+			localStorage.removeItem('token')
+			router.push('/')
 		},
 		isHover: function () {
 			this.hover = !this.hover
@@ -256,7 +257,7 @@ li {
 .sidebar {
 	list-style: none;
 	float: left;
-	margin-top: -15px;
+	margin-top: -9px;
 	padding-top: 0px;
 	height: calc(100vh - 51px);
 	width: 140px;
@@ -441,8 +442,21 @@ li {
 	width: 100px;
 }
 
+.git {
+	color: #0EA8A3;
+	font-size: 16px;
+	line-height: 36px;
+	text-decoration: none;
+}
+
+.git:hover {
+	color: #0c8a86;
+	cursor: pointer;
+	text-decoration: none;
+}
+
 .user > .ft {
-	position: absolute;
+	position: fixed;
 	float: right;
 	left: 96%;
 	bottom: 3%;

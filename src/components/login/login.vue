@@ -3,11 +3,11 @@
 	<div class="login container-fluid">
 
 		<div class="hd navbar-header row">
-			<embed class="col-md-2" height="25" width="35" src="../../static/svg/account-filling.svg"/>
+			<img class="col-md-2" height="25px" width="35px" src="../../../static/svg/account-filling.svg"/>
 			<span class="header col-md-2">LOGIN</span>
 			<div class="btn btn-goBack" v-on:click="goBack()">
 				<div class="fade-enter-active">
-					<embed height="25" width="35" src="../static/svg/back.svg"/>
+					<img height="25" width="35" src="../../../static/svg/back.svg"/>
 				</div>
 			</div>
 		</div>
@@ -15,13 +15,13 @@
 			<form>
 				<div class="input form-group">
 					<label for="input-id">
-						<embed class="left-float" height="18" width="35" src="../../static/svg/account.svg"/>
+						<img class="left-float" height="18" width="35" src="../../../static/svg/account.svg"/>
 					</label>
 					<input type="text" class="form-control" placeholder="ID" v-model="username">
 				</div>
 				<div class="input form-group">
 					<label for="input-pw">
-						<embed class="left-float" height="18" width="35" src="../../static/svg/password.svg"/>
+						<img class="left-float" height="18" width="35" src="../../../static/svg/password.svg"/>
 					</label>
 					<input type="password" class="form-control" placeholder="Password" v-model="password">
 				</div>
@@ -52,7 +52,7 @@
 			</form>
 		</div>
 		<div class="ft" >
-			<embed class=" col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/img/github5.png"/>
+			<img width="32px" class="git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../../static/svg/github5.svg"/>
 		</div>
 		
 	</div>
@@ -115,6 +115,10 @@ html, body {
 
 input[type="radio"], input[type="checkbox"] {
 	display: none;
+}
+
+label > img {
+	margin-left: 0px;
 }
 
 .login {
@@ -185,7 +189,7 @@ input[type="radio"], input[type="checkbox"] {
 	background-color: #0c8a86;
 }
 
-.btn-goBack:hover embed {
+.btn-goBack:hover img {
 	display: none;
 }
 
@@ -230,7 +234,7 @@ input[type="radio"], input[type="checkbox"] {
 	content: "";
 	display: inline-block;
 	height: 12px;
-	margin: 1px;
+	margin: 1.15px;
 	width: 12px;
 }
 

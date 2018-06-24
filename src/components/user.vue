@@ -5,12 +5,12 @@
 		<!-- Navbar -->
 		<nav class="navbar navbar-fixed-top">
 			<div class="brand-box">  
-				<embed height="25" width="35" src="../../static/svg/bussiness-card.svg"/> 
+				<img height="40px" width="50px" src="../../static/svg/bussiness-card.svg"/> 
 				<span><b>USER</b>:{{ username }}</span>
 			</div>
 			<div class="btn btn-logout" v-on:click="logout()">
 				<div class="fade-enter-active">
-					<embed height="25" width="35" src="../../static/svg/wrong.svg"/>
+					<img height="25px" width="35px" src="../../static/svg/wrong.svg"/>
 				</div>
 			</div>
 		</nav>
@@ -60,7 +60,7 @@
 		<router-view></router-view>
 
 		<div class="ft" >
-			<embed class=" col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/img/github5.png"/>
+			<img width="32px" class="col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/svg/github5.svg"/>
 		</div> 
 
 	</div>
@@ -203,6 +203,12 @@ b {
 	background-color: #707070; /* Manjaro light gray */
 }
 
+.brand-box > img {
+	margin-left: 0px;
+	margin-right: 0px;
+	margin-bottom: 10px;
+}
+
 .btn-logout {
 	display: flex;
 	width: 60px;
@@ -223,7 +229,7 @@ b {
 	background-color: #0c8a86;
 }
 
-.btn-logout:hover embed {
+.btn-logout:hover img {
 	display: none;
 }
 

@@ -2,11 +2,11 @@
 <template>
 	<div class="home">
 		<div class="hd">
-			<embed class="col-md-offset-2" height="35px" width="35px" src="../static/svg/onepage.svg"/>
+			<img class="col-md-offset-2" height="35px" width="35px" src="../../static/svg/onepage.svg"/>
 			<span class="header col-md-2">HOMEPAGE</span>
 			<div class="btn btn-goLogin col-md-offset-5" v-on:click="goLogin()">
 				<div class="fade-enter-active">
-					<embed height="20" width="35" src="../static/svg/personal-center.svg"/>
+					<img height="20px" width="35px" src="../../static/svg/personal-center.svg"/>
 				</div>
 			</div>
 		</div>
@@ -69,8 +69,7 @@
 		</div>
 
 		<div class="ft" >
-
-			<img class=" col-md-offset-2 git" v-on:click="" src="../../static/img/github5.png"/>
+			<img width="32px" class="col-md-offset-2 git" onclick="window.open('https://github.com/Phenanth/Management-Platform');" src="../../static/svg/github5.svg"/>
 		</div>
 	</div>
 </template>
@@ -162,7 +161,7 @@ h1 {
 	background-color: #0c8a86;
 }
 
-.btn-goLogin:hover embed {
+.btn-goLogin:hover img {
 	display: none;
 }
 

@@ -34,7 +34,7 @@ const Login = (req, res) => {
 		if (error) {
 			console.log(error);
 		}
-		if (results) {
+		if (results[0]) {
 			let path = '/' + req.body.role + '/' + req.body.username;
 			if (req.body.password == results[0].solution) {
 				console.log('Operation: Login, State: 200');
